@@ -10,43 +10,130 @@ red = '\033[1;31m'
 blue = '\033[1;34m'
 cyan = '\033[0;36m'
 yellow = '\033[0;33m'
-noclr = '\033[0m'
+noclr = '\033[0m'   
 
 class forensic_project:
     def __init__(self) -> None: #constructor
-        self.storage_dir = f"{os.environ['HOME']}/usr_inf" # /home/leeseok/usr_inf 에 저장된 값 읽어옴
-        if os.path.isdir(self.storage_dir) == False: # /usr_inf 존재하지 않을때 mkdir 실행  
-                print(f"Making directory to store evidence: {self.storage_dir}")
-                sp.run([f"mkdir",  self.storage_dir])  # 수집된 정보들 저장할 디렉토리 생성
-            
-    def find_user_inf(self):  # 로그인 정보 수집
+        self.storage_dir = f"{os.environ['HOME']}/K-Shiled_D6/usr_inf" # /home/leeseok/K-Shiled_D6/usr_inf 에 저장된 값 읽어옴
         try:
-            if os.path.isfile(self.storage_dir + '/login_fail.txt') == False:
-                print("Collecting system login failure history via 'lastb' command ...")
-                sp.run('sudo lastb >> ' + self.storage_dir + '/login_fail.txt', shell=True)
-            
-            if os.path.isfile(self.storage_dir + '/login_lastlog.txt') == False:
-                print("Collecting system login history via 'lastlog' command ...")
-                sp.run('sudo lastlog >> ' + self.storage_dir + '/login_lastlog.txt', shell=True)
-
-            if os.path.isfile(self.storage_dir + '/login_user.txt') == False:
-                print("Collecting Login User Information via 'who' command ...")
-                sp.run('who >> ' + self.storage_dir + '/login_user.txt', shell=True)
-
-            if os.path.isfile(self.storage_dir + '/login_user.txt') == False:
-                print("Collecting Login User Information via 'w' command ...")
-                sp.run('w >> ' + self.storage_dir + '/login_user.txt', shell=True)
-
-            if os.path.isfile(self.storage_dir + '/login_logout_user.txt') == False:
-                print("Collecting login and logout information via 'last' command ...")
-                sp.run('last >> ' + self.storage_dir + '/login_logout_user.txt', shell=True)
+            if os.path.isdir(self.storage_dir) == False: # /usr_inf 존재하지 않을때 mkdir 실행  
+                    print(f"Making directory to store evidence: {self.storage_dir}")
+                    sp.run([f"mkdir",  self.storage_dir])  # 수집된 정보들 저장할 디렉토리 생성
 
         except Exception as err:
             print(f"Error creating directory: {err}")
             return False
+            
+    def find_login_inf(self):  # 로그인 정보 수집
+        try:
+            if os.path.isfile(self.storage_dir + '/login.txt') == False: # login.txt 없는 경우
+                # 로그인에 관련된 정보 login.txt에 저장
+                file = open(self.storage_dir + "/login.txt", 'w', encoding = 'utf-8')
+                file.write("<Login Information>\n\n")	
+                file.close()
+            # lastb
+            print("Collecting system login failure history via 'lastb' command ...")
+            file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
+            file.write("*****Result of command 'lastb'*****\n")	
+            file.close()
+            sp.run('sudo lastb >> ' + self.storage_dir + '/login.txt', shell=True)
+                
+            # lastlog
+            print("Collecting system login history via 'lastlog' command ...")
+            file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
+            file.write("\n\n\n*****Result of command 'lastlog'*****\n")	
+            file.close()
+            sp.run('sudo lastlog >> ' + self.storage_dir + '/login.txt', shell=True)
+
+            # who
+            print("Collecting Login User Information via 'who' command ...")
+            file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
+            file.write("\n\n\n*****Result of command 'who'*****\n")	
+            file.close()
+            sp.run('who >> ' + self.storage_dir + '/login.txt', shell=True)
+
+            # w
+            print("Collecting Login User Information via 'w' command ...")
+            file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
+            file.write("\n\n\n*****Result of command 'w'*****\n")	
+            file.close()
+            sp.run('w >> ' + self.storage_dir + '/login.txt', shell=True)
+
+            # last
+            print("Collecting login and logout information via 'last' command ...")
+            file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
+            file.write("\n\n\n*****Result of command 'last'*****\n")	
+            file.close()
+            sp.run('last >> ' + self.storage_dir + '/login.txt', shell=True)
+
+            # /var/log/auth.log 실패한 SSH 로그인 목록 출력
+            print("Collecting file /etc/auth.log contents ...")
+            file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
+            file.write("\n\n\n*****Result of failed SSH login information in file /var/log/auth.log*****\n")	
+            file.close()
+            sp.run('cat /var/log/auth.log | grep "Failed password" >> ' + self.storage_dir + '/login.txt', shell=True)
+
+        except Exception as err:
+            print(f"Error creating file: {err}")
+            return False
+        
+    def find_user_inf(self): # 사용자 정보 수집
+        try:
+            if os.path.isfile(self.storage_dir + '/user.txt') == False:
+                # 사용자에 관련된 정보 user.txt에 저장
+                file = open(self.storage_dir + "/user.txt", 'w', encoding = 'utf-8')
+                file.write("*****<User Information>*****\n\n")	
+                file.close()
+
+            # /etc/passwd 정보 수집
+            print("Collecting file /etc/passwd contents ...")
+            file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
+            file.write("*****Results of file /etc/passwd content collection*****\n")	
+            file.close()
+            sp.run('cat /etc/passwd >> ' + self.storage_dir + '/user.txt', shell=True)
+
+            # /etc/shadow 정보 수집
+            print("Collecting file /etc/shadow contents ...")
+            file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
+            file.write("\n\n\n*****Results of file /etc/shadow content collection*****\n")	
+            file.close()
+            sp.run('sudo cat /etc/shadow >> ' + self.storage_dir + '/user.txt', shell=True)
+
+            # /etc/group 정보 수집
+            print("Collecting file /etc/group contents ...")
+            file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
+            file.write("\n\n\n*****Results of file /etc/group content collection*****\n")	
+            file.close()
+            sp.run('cat /etc/group >> ' + self.storage_dir + '/user.txt', shell=True)
+
+            # /etc/hosts 정보 수집
+            print("Collecting file /etc/hosts contents ...")
+            file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
+            file.write("\n\n\n*****Results of file /etc/hosts content collection*****\n")	
+            file.close()
+            sp.run('cat /etc/hosts >> ' + self.storage_dir + '/user.txt', shell=True)
+
+            # /etc/hosts.allow 정보 수집
+            print("Collecting file /etc/hosts.allow contents ...")
+            file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
+            file.write("\n\n\n*****Results of file /etc/hosts.allow content collection*****\n")	
+            file.close()
+            sp.run('cat /etc/hosts.allow >> ' + self.storage_dir + '/user.txt', shell=True)
+
+            # /etc/hosts.deny 정보 수집
+            print("Collecting file /etc/hosts.deny contents ...")
+            file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
+            file.write("\n\n\n*****Results of /etc/hosts.deny file content collection*****\n")	
+            file.close()
+            sp.run('cat /etc/hosts.deny >> ' + self.storage_dir + '/user.txt', shell=True)
+
+        except Exception as err:
+            print(f"Error creating directory: {err}")
+            return False
+        
 
     def main(self):
-        return self.find_user_inf()
+        return self.find_login_inf(), self.find_user_inf()
         
 
 if __name__ == '__main__':
