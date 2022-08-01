@@ -14,17 +14,18 @@ def sys_info():
     print("----progressing systeminfo-----")
     s = open(savedir + '/system_info.txt', "w")
     s.write("----------------sysytem_info------------------\n")
-    s.write("Architecture : " + platform.architecture()[0] + "\n")
-    s.write("Machine : " + platform.machine() + "\n")
-    s.write("Node : " + platform.node() + "\n")
-    s.write("System : " + platform.system() + "\n")
-    now = str(datetime.now())
+    s.write("Architecture : " + platform.architecture()[0] + "\n") #architecture
+    s.write("Machine : " + platform.machine() + "\n") #machine
+    s.write("Node : " + platform.node() + "\n")    #node
+    s.write("System : " + platform.system() + "\n") #os
+    now = str(datetime.now()) # 현재시간
     s.write("local time : " + now + "\n")
     s.write("-------------------------------------------------\n")
     s.close()
 
 
     print("------progressing fstab-----")
+    #etc/fstab 부팅시 마운트 정보
     f = open("/etc/fstab", "r")
     s = open(savedir + '/system_info.txt', "a")
     data = f.read()
@@ -35,6 +36,7 @@ def sys_info():
     f.close
 
     print("---------progressing mtab---------------")
+    # /etc/mtab 현재 마운트 상태에 대한 정보
     mtab= open("/etc/mtab", "r")
     s2 = open(savedir + '/system_info.txt', "a")
     data2=mtab.read()
