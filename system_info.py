@@ -47,3 +47,8 @@ def sys_info():
     s2.close()
 
 
+    
+    
+    
+    
+#ubuntu 20 /etc/inittab이 없음..?
