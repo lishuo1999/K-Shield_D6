@@ -46,6 +46,24 @@ def sys_info():
     f.close()
     s2.close()
 
+    i = open(savedir + '/issue.txt', "w") #로그인전 로컬접속시도 message
+    i.write("----------------/etc/issue------------------\n")
+    issue = open("/etc/issue", "r")
+    issue_data = issue.read()
+    i.write(issue_data)
+    i.write("------------------------------------------------\n")
+    i.close()
+    issue.close()
+
+    i = open(savedir + '/issue.txt', "a")# 로그인전 원격접속시도시 message
+    i.write("----------------/etc/issue.net------------------\n")
+    issue = open("/etc/issue.net", "r")
+    issue_data = issue.read()
+    i.write(issue_data)
+    i.write("------------------------------------------------\n")
+    i.close()
+    issue.close()
+
 
     
     
