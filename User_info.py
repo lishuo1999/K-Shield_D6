@@ -3,6 +3,7 @@ import argparse
 from argparse import ArgumentParser
 import os
 import subprocess as sp
+from datetime import datetime
 
 white = "\033[1;37m"
 green = '\033[1;32m'
@@ -32,42 +33,48 @@ class forensic_project:
                 file.write("<Login Information>\n\n")	
                 file.close()
             # lastb
-            print("Collecting system login failure history via 'lastb' command ...")
+            time = sp.getoutput(f"date")
+            print(time + "  Collecting system login failure history via 'lastb' command ...")
             file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
             file.write("*****Result of command 'lastb'*****\n")	
             file.close()
             sp.run('sudo lastb >> ' + self.storage_dir + '/login.txt', shell=True)
                 
             # lastlog
-            print("Collecting system login history via 'lastlog' command ...")
+            time = sp.getoutput(f"date")
+            print(time + "  Collecting system login history via 'lastlog' command ...")
             file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Result of command 'lastlog'*****\n")	
             file.close()
             sp.run('sudo lastlog >> ' + self.storage_dir + '/login.txt', shell=True)
 
             # who
-            print("Collecting Login User Information via 'who' command ...")
+            time = sp.getoutput(f"date")
+            print(time + "  Collecting Login User Information via 'who' command ...")
             file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Result of command 'who'*****\n")	
             file.close()
             sp.run('who >> ' + self.storage_dir + '/login.txt', shell=True)
 
             # w
-            print("Collecting Login User Information via 'w' command ...")
+            time = sp.getoutput(f"date")
+            print(time + "  Collecting Login User Information via 'w' command ...")
             file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Result of command 'w'*****\n")	
             file.close()
             sp.run('w >> ' + self.storage_dir + '/login.txt', shell=True)
 
             # last
-            print("Collecting login and logout information via 'last' command ...")
+            time = sp.getoutput(f"date")
+            print(time + "  Collecting login and logout information via 'last' command ...")
             file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Result of command 'last'*****\n")	
             file.close()
             sp.run('last >> ' + self.storage_dir + '/login.txt', shell=True)
 
             # /var/log/auth.log 실패한 SSH 로그인 목록 출력
-            print("Collecting file /etc/auth.log contents ...")
+            time = sp.getoutput(f"date")
+            print(time + "  Collecting file /etc/auth.log contents ...")
             file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Result of failed SSH login information in file /var/log/auth.log*****\n")	
             file.close()
@@ -86,42 +93,48 @@ class forensic_project:
                 file.close()
 
             # /etc/passwd 정보 수집
-            print("Collecting file /etc/passwd contents ...")
+            time = sp.getoutput(f"date")
+            print(time + "  Collecting file /etc/passwd contents ...")
             file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
             file.write("*****Results of file /etc/passwd content collection*****\n")	
             file.close()
             sp.run('cat /etc/passwd >> ' + self.storage_dir + '/user.txt', shell=True)
 
             # /etc/shadow 정보 수집
-            print("Collecting file /etc/shadow contents ...")
+            time = sp.getoutput(f"date")
+            print(time + "  Collecting file /etc/shadow contents ...")
             file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Results of file /etc/shadow content collection*****\n")	
             file.close()
             sp.run('sudo cat /etc/shadow >> ' + self.storage_dir + '/user.txt', shell=True)
 
             # /etc/group 정보 수집
-            print("Collecting file /etc/group contents ...")
+            time = sp.getoutput(f"date")
+            print(time + "  Collecting file /etc/group contents ...")
             file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Results of file /etc/group content collection*****\n")	
             file.close()
             sp.run('cat /etc/group >> ' + self.storage_dir + '/user.txt', shell=True)
 
             # /etc/hosts 정보 수집
-            print("Collecting file /etc/hosts contents ...")
+            time = sp.getoutput(f"date")
+            print(time + "  Collecting file /etc/hosts contents ...")
             file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Results of file /etc/hosts content collection*****\n")	
             file.close()
             sp.run('cat /etc/hosts >> ' + self.storage_dir + '/user.txt', shell=True)
 
             # /etc/hosts.allow 정보 수집
-            print("Collecting file /etc/hosts.allow contents ...")
+            time = sp.getoutput(f"date")
+            print(time + "  Collecting file /etc/hosts.allow contents ...")
             file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Results of file /etc/hosts.allow content collection*****\n")	
             file.close()
             sp.run('cat /etc/hosts.allow >> ' + self.storage_dir + '/user.txt', shell=True)
 
             # /etc/hosts.deny 정보 수집
-            print("Collecting file /etc/hosts.deny contents ...")
+            time = sp.getoutput(f"date")
+            print(time + "  Collecting file /etc/hosts.deny contents ...")
             file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Results of /etc/hosts.deny file content collection*****\n")	
             file.close()
