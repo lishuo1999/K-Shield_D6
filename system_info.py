@@ -10,8 +10,21 @@ def osmkdir():
     if os.path.isdir(f"{pwd}/sys") == False:
         subprocess.run(['mkdir', f"{pwd}/sys"])
 
+        
+def status(name):
+
+    nowtime = datetime.now()
+
+    if os.path.isfile(f"{pwd}/status.txt") == True:
+        f = open(pwd + '/status.txt', "a")
+    elif os.path.isfile(f"{pwd}/status.txt") == False:
+        f = open(pwd + '/status.txt', "w")
+        f.write("today : {}\n".format(nowtime.date()))
+        f.write("---------------------------------------\n")
+  
+
 def sys_info():
-    print("----progressing systeminfo-----")
+    status("system_info")
     s = open(savedir + '/system_info.txt', "w")
     s.write("----------------sysytem_info------------------\n")
     s.write("Architecture : " + platform.architecture()[0] + "\n") #architecture
@@ -24,7 +37,7 @@ def sys_info():
     s.close()
 
 
-    print("------progressing fstab-----")
+    status("fstab")
     #etc/fstab 부팅시 마운트 정보
     f = open("/etc/fstab", "r")
     s = open(savedir + '/system_info.txt', "a")
@@ -35,7 +48,7 @@ def sys_info():
     s.close()    
     f.close
 
-    print("---------progressing mtab---------------")
+    status("mtab")
     # /etc/mtab 현재 마운트 상태에 대한 정보
     mtab= open("/etc/mtab", "r")
     s2 = open(savedir + '/system_info.txt', "a")
@@ -46,6 +59,7 @@ def sys_info():
     f.close()
     s2.close()
 
+    status("issue")
     i = open(savedir + '/issue.txt', "w") #로그인전 로컬접속시도 message
     i.write("----------------/etc/issue------------------\n")
     issue = open("/etc/issue", "r")
@@ -55,6 +69,7 @@ def sys_info():
     i.close()
     issue.close()
 
+    status("issue.net")
     i = open(savedir + '/issue.txt', "a")# 로그인전 원격접속시도시 message
     i.write("----------------/etc/issue.net------------------\n")
     issue = open("/etc/issue.net", "r")
