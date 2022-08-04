@@ -1,7 +1,9 @@
 #!/bin/python3
 
+from __future__ import print_function
+from collections import OrderedDict
 import subprocess
-import os
+import os,sys,time
 import pprint
 
 def ps_aux():
@@ -9,7 +11,10 @@ def ps_aux():
     subprocess.call('ps aux > ps_aux_result.txt', shell=True)
 ps_aux()
 
-
+def ps_ef():
+    subprocess.call('ps -ef', shell=True)
+    subprocess.call('ps -ef > ps_ef_result.txt', shell=True)
+ps_ef()
 def top():
     process = os.popen('top -n 1')
     preprocessed = process.read()
@@ -23,8 +28,6 @@ top()
 
 #Filename:CPU1.py
 #Filename:meminfo.py
-from future import print_function
-from collections import OrderedDict
 
 def CPUinfo():
 
@@ -70,3 +73,8 @@ if __name__ == '__main__':
     f.write("Free memory:{0}".format(meminfo['MemFree']))
     f.write("Free memory:{0}".format(meminfo['MemFree']))
     f.close()
+
+def dmesg():
+    subprocess.call('sudo dmesg', shell=True)
+    subprocess.call('sudo dmesg > dmesg_result.txt', shell=True)
+dmesg()
