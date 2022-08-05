@@ -14,19 +14,19 @@ def important_file_info():
 
 	try: 
 
-	print(“----------Log File Information----------”)
+		print(“----------Log File Information----------”)
 
-	subprocess.run(‘find $logdir -name "*.log" -mtime –3 –print’ >> ‘logfile_info.txt’, shell=True) # 3일 전까지 갱신된 파일 출력
-	subprocess.run(‘find $logdir -mmin -30 -type f –ls’ >> ‘logfile_info.txt’, shell=True) # 30분 이내의 수정한 파일 출력
+		subprocess.run(‘find $logdir -name "*.log" -mtime –3 –print’ >> ‘logfile_info.txt’, shell=True)  # 3일 전까지 갱신된 파일 출력
+		subprocess.run(‘find $logdir -mmin -30 -type f –ls’ >> ‘logfile_info.txt’, shell=True)  # 30분 이내의 수정한 파일 출력
 
-	subprocess.run(‘find $pwddir –type f -mtime –3 –print’ >> ‘logfile_info.txt’, shell=True) 
-	subprocess.run(‘find $pwddir -mmin -30 -type f –ls’ >> ‘logfile_info.txt’, shell=True) 
+		subprocess.run(‘find $pwddir –type f -mtime –3 –print’ >> ‘logfile_info.txt’, shell=True) 
+		subprocess.run(‘find $pwddir -mmin -30 -type f –ls’ >> ‘logfile_info.txt’, shell=True) 
 
-	subprocess.run(‘find $netdir –type f -mtime –3 –print’ >> ‘logfile_info.txt’, shell=True) 
-	subprocess.run(‘find $netdir -mmin -30 -type f –ls’ >> ‘logfile_info.txt’, shell=True) 
+		subprocess.run(‘find $netdir –type f -mtime –3 –print’ >> ‘logfile_info.txt’, shell=True) 
+		subprocess.run(‘find $netdir -mmin -30 -type f –ls’ >> ‘logfile_info.txt’, shell=True) 
 
-	subprocess.run(‘find $memdir –type f -mtime –3 –print’ >> ‘logfile_info.txt’, shell=True) 
-	subprocess.run(‘find $memdir -mmin -30 -type f –ls’ >> ‘logfile_info.txt’, shell=True) 
+		subprocess.run(‘find $memdir –type f -mtime –3 –print’ >> ‘logfile_info.txt’, shell=True) 
+		subprocess.run(‘find $memdir -mmin -30 -type f –ls’ >> ‘logfile_info.txt’, shell=True) 
 
 	except Exception as e:
-	print(“----------Error----------”)
+		print(“----------Error----------”)
