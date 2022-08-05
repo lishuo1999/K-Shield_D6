@@ -1,37 +1,32 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import os
+import subprocess
 
-# 해당 디렉터리 밑 숨겨진 파일 
-# 리눅스 중요 파일 정보만 수집
+#각각 중요 파일의 수정된 정보 수집
 
-def HdFile():
-	os.system('ls -l /etc' > a1.txt)  
-	os.system('ls -l /proc' > a1.txt)
-	os.system('ls -l /var' > a1.txt) 
+logdir="/var/log" #기본 로그 파일
+pwddir=“/etc/passwd” # 암호화된 파일
+netdir=“/etc/sysconfig” #네트워크 설정 파일
+memdir=“/proc/meminfo” # 메모리 관련 정보 파일
 
+def important_file_info(): 
 
-HdFile()
+	try: 
 
+	print(“----------Log File Information----------”)
 
-# 생성 또는 변경된 파일 
+	subprocess.run(‘find $logdir -name "*.log" -mtime –3 –print’ >> ‘logfile_info.txt’, shell=True) # 3일 전까지 갱신된 파일 출력
+	subprocess.run(‘find $logdir -mmin -30 -type f –ls’ >> ‘logfile_info.txt’, shell=True) # 30분 이내의 수정한 파일 출력
 
-def CgFile():
-	os.system('find /bin –type f -mtime -30' > b1.txt)
-	os.system('find /bin –type f –ctime -7' > b1.txt) 
-	os.system('ind /bin –type f –atime -7' > b1.txt)
+	subprocess.run(‘find $pwddir –type f -mtime –3 –print’ >> ‘logfile_info.txt’, shell=True) 
+	subprocess.run(‘find $pwddir -mmin -30 -type f –ls’ >> ‘logfile_info.txt’, shell=True) 
 
-CgFile()
+	subprocess.run(‘find $netdir –type f -mtime –3 –print’ >> ‘logfile_info.txt’, shell=True) 
+	subprocess.run(‘find $netdir -mmin -30 -type f –ls’ >> ‘logfile_info.txt’, shell=True) 
 
+	subprocess.run(‘find $memdir –type f -mtime –3 –print’ >> ‘logfile_info.txt’, shell=True) 
+	subprocess.run(‘find $memdir -mmin -30 -type f –ls’ >> ‘logfile_info.txt’, shell=True) 
 
-# 특수 권한을 가진 파일
-
-def AtFile():
-
-	os.sytem('find / -uid 0 –perm 4000' > c.txt)
-
-AtFile()
-
-
-# 코드 안돌아감 ... 왜 일까 ... 이유가 뭘까 ?
-# NameError 계속 뜸
+	except Exception as e:
+	print(“----------Error----------”)
