@@ -6,9 +6,9 @@ import subprocess
 #각각 중요 파일의 수정된 정보 수집
 
 logdir="/var/log" #기본 로그 파일
-pwddir=“/etc/passwd” # 암호화된 파일
-netdir=“/etc/sysconfig” #네트워크 설정 파일
-memdir=“/proc/meminfo” # 메모리 관련 정보 파일
+pwddir="/etc/passwd" # 암호화된 파일
+netdir="/etc/sysconfig" #네트워크 설정 파일
+memdir="/proc/meminfo" # 메모리 관련 정보 파일
 
 def important_file_info(): 
 
