@@ -12,7 +12,7 @@ def osmkdir():
         subprocess.run(['mkdir', f"{pwd}/sys"])
 
         
-def status(name): 실행시 시간정보 출력
+def status(name): #실행시 시간정보 출력
 
     nowtime = datetime.now()
 
