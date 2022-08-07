@@ -1,3 +1,4 @@
+from genericpath import isfile
 import platform
 import os
 import subprocess
@@ -11,17 +12,60 @@ def osmkdir():
         subprocess.run(['mkdir', f"{pwd}/sys"])
 
         
-def status(name):                   #실행시 시간정보 출력
+def status(name): 실행시 시간정보 출력
 
     nowtime = datetime.now()
 
     if os.path.isfile(f"{pwd}/status.txt") == True:
         f = open(pwd + '/status.txt', "a")
+        f.write("{} : {}\n".format(name, nowtime.time()))
+
     elif os.path.isfile(f"{pwd}/status.txt") == False:
         f = open(pwd + '/status.txt', "w")
         f.write("today : {}\n".format(nowtime.date()))
         f.write("---------------------------------------\n")
+        f.write("{} : {}\n.".format(name, nowtime.time()))
+    
+    
+    print("-------------------time : {}-------------------\n".format(nowtime.time()))
+    print("-----------------------{}------------------\n".format(name))
+    
+    f.close()
   
+  
+
+def file_save(path, filename, savename):
+    
+
+    if os.path.isfile(savedir + savename) == True:
+
+        f = open(path + filename, "r")
+        s = open(savedir + savename, "a")
+        data = f.read()
+        s.write("----------------------{}--------------------------------\n".format(filename))
+        s.write(data)
+        s.write("-----------------------------------------------------\n")
+        s.close()    
+        f.close
+    elif os.path.isfile(savedir + savename) == False:
+        f = open(path + filename, "r")
+        s = open(savedir + savename, "w")
+        data = f.read()
+        s.write("----------------------{}--------------------------------\n".format(filename))
+        s.write(data)
+        s.write("-----------------------------------------------------\n")
+        s.close()    
+        f.close
+
+
+
+
+
+
+
+
+
+
 
 def sys_info():
     status("system_info")
@@ -39,25 +83,16 @@ def sys_info():
 
     status("fstab")
     #etc/fstab 부팅시 마운트 정보
-    f = open("/etc/fstab", "r")
-    s = open(savedir + '/system_info.txt', "a")
-    data = f.read()
-    s.write("---------------fstab--------------------------------\n")
-    s.write(data)
-    s.write("-----------------------------------------------------\n")
-    s.close()    
-    f.close
-
+    file_save("/etc/","fstab","/system_info.txt")
+    
+    
+    
+    
     status("mtab")
     # /etc/mtab 현재 마운트 상태에 대한 정보
-    mtab= open("/etc/mtab", "r")
-    s2 = open(savedir + '/system_info.txt', "a")
-    data2=mtab.read()
-    s2.write("--------------------mtab-------------------------------\n")
-    s2.write(data2)
-    s2.write("-------------------------------------------------\n")
-    f.close()
-    s2.close()
+    file_save("/etc/","mtab","/system_info.txt")
+    
+
 
     status("issue")
     i = open(savedir + '/issue.txt', "w") #로그인전 로컬접속시도 message
@@ -81,7 +116,7 @@ def sys_info():
 
 
     
-    
-    
+sys_info()
+
     
 #ubuntu 20 /etc/inittab이 없음..?
