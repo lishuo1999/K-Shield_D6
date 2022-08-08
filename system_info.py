@@ -82,6 +82,9 @@ def sys_info():
     status("uname") #system_info
     os_sys("uname -a", "/system_info.txt")
     os_sys("uname -r", "/system_info.txt")
+    
+    status("locale")
+    file_save("/etc/default/", "locale", "system_info.txt")
 
 
     status("fstab")
