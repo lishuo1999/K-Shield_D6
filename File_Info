@@ -13,7 +13,7 @@ netdir="/etc/sysconfig" #네트워크 설정 파일
 memdir="/proc/meminfo" # 메모리 관련 정보 파일
 
 
-def important_file_info(): 
+def ipt_file_info(): 
 
 	try: 
 
@@ -70,7 +70,7 @@ def hidden_file_info():
 			       
 # 열린 파일 개수 확인
 
-def count_file_info():
+def cnt_file_info():
 
 	try:
 
