@@ -5,14 +5,14 @@ import subprocess
 from datetime import date, datetime
 
 pwd = os.getcwd()
-savedir = f"{pwd}/sys"
+savedir = f"{pwd}/sys_info"
 
 def osmkdir():
-    if os.path.isdir(f"{pwd}/sys") == False:
-        subprocess.run(['mkdir', f"{pwd}/sys"])
+    if os.path.isdir(f"{pwd}/sys_info") == False:
+        subprocess.run(['mkdir', f"{pwd}/sys_info"])
 
         
-def status(name): #실행시 시간정보 출력
+def status(name):
 
     nowtime = datetime.now()
 
@@ -44,7 +44,7 @@ def file_save(path, filename, savename):
         data = f.read()
         s.write("----------------------{}--------------------------------\n".format(filename))
         s.write(data)
-        s.write("-----------------------------------------------------\n")
+        s.write("-----------------------------------------------------\n\n")
         s.close()    
         f.close
     elif os.path.isfile(savedir + savename) == False:
@@ -53,16 +53,15 @@ def file_save(path, filename, savename):
         data = f.read()
         s.write("----------------------{}--------------------------------\n".format(filename))
         s.write(data)
-        s.write("-----------------------------------------------------\n")
+        s.write("-----------------------------------------------------\n\n")
         s.close()    
         f.close
 
 
-
-
-
-
-
+def os_sys(command, save_name):
+    subprocess.run("echo '---------------------------{}-------------------------------' >> ".format(command) + savedir + save_name, shell=True)
+    subprocess.run('{} >> '.format(command) + savedir + save_name, shell=True)
+    subprocess.run("echo '---------------------------------------------------------------\n' >> " + savedir + save_name, shell=True)
 
 
 
@@ -77,8 +76,12 @@ def sys_info():
     s.write("System : " + platform.system() + "\n") #os
     now = str(datetime.now()) # 현재시간
     s.write("local time : " + now + "\n")
-    s.write("-------------------------------------------------\n")
+    s.write("-------------------------------------------------\n\n")
     s.close()
+
+    status("uname") #system_info
+    os_sys("uname -a", "/system_info.txt")
+    os_sys("uname -r", "/system_info.txt")
 
 
     status("fstab")
@@ -95,28 +98,35 @@ def sys_info():
 
 
     status("issue")
-    i = open(savedir + '/issue.txt', "w") #로그인전 로컬접속시도 message
-    i.write("----------------/etc/issue------------------\n")
-    issue = open("/etc/issue", "r")
-    issue_data = issue.read()
-    i.write(issue_data)
-    i.write("------------------------------------------------\n")
-    i.close()
-    issue.close()
+    file_save("/etc/", "issue", "/issue.txt")     #로그인전 로컬접속시도 message
+
 
     status("issue.net")
-    i = open(savedir + '/issue.txt', "a")# 로그인전 원격접속시도시 message
-    i.write("----------------/etc/issue.net------------------\n")
-    issue = open("/etc/issue.net", "r")
-    issue_data = issue.read()
-    i.write(issue_data)
-    i.write("------------------------------------------------\n")
-    i.close()
-    issue.close()
+    file_save("/etc/","issue.net", "/issue.txt")
+
+    status("kernel_info")
+    os_sys("find /etc ! -path /etc -prune -name '*release*' -print0 | xargs -0 cat 2>/dev/null", "/kernel_info.txt") #kernel_info
+
+    status("modules") #모듈정보
+    os_sys("lsmod", "/modules.txt")
+
+    status("sudo") #sudo
+    os_sys("sudo -V", "/sudo.txt")
 
 
-    
+
+
+
+
+
+ 
+
+
+
+osmkdir()
 sys_info()
+
+
 
     
 #ubuntu 20 /etc/inittab이 없음..?
