@@ -66,22 +66,36 @@ def hidden_file_info():
 	except Exception as e:
 		print(“----------Error----------”)
 
+		
+# 열린 파일 개수 확인
 
 def count_file_info():
 
 	try:
-	
+
 		print(“----------File Count Information----------”)
 
-		subprocess.run('isof
+	if lsof /var/log/messages != 0
+		subprocess.run(‘losf +D /var/log/messages >> ’count_file_info.txt’, shell=True)
 
-			       
+	elif lsof /etc/passwd != 0
+		subprocess.run(‘losf +D /etc/passwd >> ’count_file_info.txt’, shell=True)
+
+	elif lsof /etc/sysconfig != 0
+		subprocess.run(‘losf +D /etc/sysconfig >> ’count_file_info.txt’, shell=True)
+
+	elif lsof /proc/cpuinf != 0	
+		subprocess.run(‘losf +D /proc/cpuinfo >> ’count_file_info.txt’, shell=True)
+
+	else
+		print(“-----------No open files found----------”)
+
+		
 	except Exception as e:
 		print(“----------Error----------”)
 
-	
 			       
-			       
+			
 def main()
 	return important_file_info(), hidden_file_info()
 
