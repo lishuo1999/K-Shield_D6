@@ -16,17 +16,17 @@ def important_file_info():
 
 		print(“----------Log File Information----------”)
 
-		subprocess.run(‘find $logdir -name "*.log" -mtime –3 –print’ >> ‘logfile_info.txt’, shell=True)  # 3일 전까지 갱신된 파일 출력
-		subprocess.run(‘find $logdir -mmin -30 -type f –ls’ >> ‘logfile_info.txt’, shell=True)  # 30분 이내의 수정한 파일 출력
+		subprocess.run('find $logdir -name "*.log" -mtime –3 –print’ >> ‘logfile_info.txt’, shell=True)  # 3일 전까지 갱신된 파일 출력
+		subprocess.run('find $logdir -mmin -30 -type f –ls’ >> ‘logfile_info.txt’, shell=True)  # 30분 이내의 수정한 파일 출력
 
-		subprocess.run(‘find $pwddir –type f -mtime –3 –print’ >> ‘logfile_info.txt’, shell=True) 
-		subprocess.run(‘find $pwddir -mmin -30 -type f –ls’ >> ‘logfile_info.txt’, shell=True) 
+		subprocess.run('find $pwddir –type f -mtime –3 –print’ >> ‘logfile_info.txt’, shell=True) 
+		subprocess.run('find $pwddir -mmin -30 -type f –ls’ >> ‘logfile_info.txt’, shell=True) 
 
-		subprocess.run(‘find $netdir –type f -mtime –3 –print’ >> ‘logfile_info.txt’, shell=True) 
-		subprocess.run(‘find $netdir -mmin -30 -type f –ls’ >> ‘logfile_info.txt’, shell=True) 
+		subprocess.run('find $netdir –type f -mtime –3 –print’ >> ‘logfile_info.txt’, shell=True) 
+		subprocess.run('find $netdir -mmin -30 -type f –ls’ >> ‘logfile_info.txt’, shell=True) 
 
-		subprocess.run(‘find $memdir –type f -mtime –3 –print’ >> ‘logfile_info.txt’, shell=True) 
-		subprocess.run(‘find $memdir -mmin -30 -type f –ls’ >> ‘logfile_info.txt’, shell=True) 
+		subprocess.run('find $memdir –type f -mtime –3 –print’ >> ‘logfile_info.txt’, shell=True) 
+		subprocess.run('find $memdir -mmin -30 -type f –ls’ >> ‘logfile_info.txt’, shell=True) 
 
 	except Exception as e:
 		print(“----------Error----------”)
@@ -34,13 +34,13 @@ def important_file_info():
 
 # 실행권한 또는 특수권한을 가진 파일 정보 수집
 
-def executables():
+def executables_file_info():
 
 	try: 
 
 		print(“----------Excutables File Information----------”)
 
-		subprocess.run(‘find / -type f -perm -o+rx -print0 | xargs -0 sha1sum ’ >> ‘Excutables_info.txt’, shell=True) # 해시값 확인
+		subprocess.run('find / -type f -perm -o+rx -print0 | xargs -0 sha1sum ’ >> ‘Excutables_info.txt’, shell=True) # 해시값 확인
 
 	except Exception as e:
 		print(“----------Error----------”)
@@ -58,10 +58,10 @@ def hidden_file_info():
 
 		print(“----------Hidden File Information----------”)
 
-		subprocess.run(‘find /var –type f –name “.*”’ >> ‘hidden_info.txt’, shell=True) # /var 디렉터린 내 숨긴 파일 찾기
-		subprocess.run(‘find /bin –type f –name “.*”’ >> ‘hidden_info.txt’, shell=True) # /bin 디렉터린 내 숨긴 파일 찾기
-		subprocess.run(‘find /etc –type f –name “.*”’ >> ‘hidden_info.txt’, shell=True) # /etc 디렉터린 내 숨긴 파일 찾기
-		subprocess.run(‘find /proc –type f –name “.*”’ >> ‘hidden_info.txt’, shell=True) # /proc 디렉터린 내 숨긴 파일 찾기
+		subprocess.run('find /var –type f –name “.*"' >> 'hidden_info.txt’, shell=True)  # /var 디렉터린 내 숨긴 파일 찾기
+		subprocess.run('find /bin –type f –name “.*”' >> 'hidden_info.txt’, shell=True)  # /bin 디렉터린 내 숨긴 파일 찾기
+		subprocess.run('find /etc –type f –name “.*”' >> 'hidden_info.txt’, shell=True)  # /etc 디렉터린 내 숨긴 파일 찾기
+		subprocess.run('find /proc –type f –name “.*”' >> 'hidden_info.txt’, shell=True)  # /proc 디렉터린 내 숨긴 파일 찾기
 
 	except Exception as e:
 		print(“----------Error----------”)
@@ -76,16 +76,16 @@ def count_file_info():
 		print(“----------File Count Information----------”)
 
 	if lsof /var/log/messages != 0
-		subprocess.run(‘losf +D /var/log/messages >> ’count_file_info.txt’, shell=True)
+		subprocess.run('losf +D /var/log/messages' >> 'count_file_info.txt’, shell=True)
 
 	elif lsof /etc/passwd != 0
-		subprocess.run(‘losf +D /etc/passwd >> ’count_file_info.txt’, shell=True)
+		subprocess.run('losf +D /etc/passwd' >> 'count_file_info.txt’, shell=True)
 
 	elif lsof /etc/sysconfig != 0
-		subprocess.run(‘losf +D /etc/sysconfig >> ’count_file_info.txt’, shell=True)
+		subprocess.run('losf +D /etc/sysconfig' >> 'count_file_info.txt’, shell=True)
 
 	elif lsof /proc/cpuinf != 0	
-		subprocess.run(‘losf +D /proc/cpuinfo >> ’count_file_info.txt’, shell=True)
+		subprocess.run('losf +D /proc/cpuinfo' >> 'count_file_info.txt’, shell=True)
 
 	else
 		print(“-----------No open files found----------”)
@@ -97,7 +97,7 @@ def count_file_info():
 			       
 			
 def main()
-	return important_file_info(), hidden_file_info()
+	return important_file_info(), executables_file_info(), hidden_file_info(), count_file_info()
 
      
 			       
