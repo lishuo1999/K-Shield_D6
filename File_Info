@@ -30,3 +30,63 @@ def important_file_info():
 
 	except Exception as e:
 		print(“----------Error----------”)
+		
+
+# 실행권한 또는 특수권한을 가진 파일 정보 수집
+
+def executables():
+
+	try: 
+
+		print(“----------Excutables File Information----------”)
+
+		subprocess.run(‘find / -type f -perm -o+rx -print0 | xargs -0 sha1sum ’ >> ‘Excutables_info.txt’, shell=True) # 해시값 확인
+
+	except Exception as e:
+		print(“----------Error----------”)
+
+
+
+
+
+
+# 숨긴 파일 찾기
+
+def hidden_file_info():
+
+	try: 
+
+		print(“----------Hidden File Information----------”)
+
+		subprocess.run(‘find /var –type f –name “.*”’ >> ‘hidden_info.txt’, shell=True) # /var 디렉터린 내 숨긴 파일 찾기
+		subprocess.run(‘find /bin –type f –name “.*”’ >> ‘hidden_info.txt’, shell=True) # /bin 디렉터린 내 숨긴 파일 찾기
+		subprocess.run(‘find /etc –type f –name “.*”’ >> ‘hidden_info.txt’, shell=True) # /etc 디렉터린 내 숨긴 파일 찾기
+		subprocess.run(‘find /proc –type f –name “.*”’ >> ‘hidden_info.txt’, shell=True) # /proc 디렉터린 내 숨긴 파일 찾기
+
+	except Exception as e:
+		print(“----------Error----------”)
+
+
+def count_file_info():
+
+	try:
+	
+		print(“----------File Count Information----------”)
+
+		subprocess.run('isof
+
+			       
+	except Exception as e:
+		print(“----------Error----------”)
+
+	
+			       
+			       
+def main()
+	return important_file_info(), hidden_file_info()
+
+     
+			       
+if __name__ == '__main__':
+	main()
+  
