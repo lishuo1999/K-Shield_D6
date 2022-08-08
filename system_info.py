@@ -113,7 +113,15 @@ def sys_info():
     status("sudo") #sudo
     os_sys("sudo -V", "/sudo.txt")
 
+    status("lsusb") #usb information
+    os_sys("osusb", "/usb_info.txt")
+    
+    status("mount") #mount된 정보
+    os_sys("mount", "/mount.txt")
+    
 
+    status("df") # 파일시스템 크기와 용량
+    os_sys("df", "df.txt")
 
 
 
