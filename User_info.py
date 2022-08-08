@@ -3,7 +3,6 @@ import argparse
 from argparse import ArgumentParser
 import os
 import subprocess as sp
-from datetime import datetime
 import sys
 
 white = "\033[1;37m"
@@ -20,7 +19,6 @@ class forensic_project:
         self.storage_dir = f"{os.environ['HOME']}/K-Shiled_D6/usr_inf" # /home/leeseok/K-Shiled_D6/usr_inf 에 저장된 값 읽어옴
 
     def printsave(self, *tmp):
-        #print(*tmp)
         file = open(self.storage_dir + '/stdout.txt', 'a', encoding = 'utf-8')
         print(*tmp)
         print(*tmp, file=file)
@@ -69,6 +67,39 @@ class forensic_project:
             file.close()
             sp.run('who >> ' + self.storage_dir + '/login.txt', shell=True)
 
+            # who -aH
+            time = sp.getoutput(f"date")
+            self.printsave(time + "  Collecting all Login User Information  via 'who -aH' command ...")
+            file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
+            file.write("\n\n\n*****Result of command 'who -aH'*****\n")	
+            file.close()
+            sp.run('who -aH >> ' + self.storage_dir + '/login.txt', shell=True)
+
+            # who -q
+            time = sp.getoutput(f"date")
+            self.printsave(time + "  Collecting Login User accounts and number of users logged in via 'who -q' command ...")
+            file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
+            file.write("\n\n\n*****Result of command 'who -q'*****\n")	
+            file.close()
+            sp.run('who -q >> ' + self.storage_dir + '/login.txt', shell=True)
+
+            # whoami
+            time = sp.getoutput(f"date")
+            self.printsave(time + "  Collecting Login User accounts via 'whoami' command ...")
+            file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
+            file.write("\n\n\n*****Result of command 'whoami'*****\n")	
+            file.close()
+            sp.run('whoami >> ' + self.storage_dir + '/login.txt', shell=True)
+
+
+            # logname
+            time = sp.getoutput(f"date")
+            self.printsave(time + "  Collecting Login User accounts via 'logname' command ...")
+            file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
+            file.write("\n\n\n*****Result of command 'logname'*****\n")	
+            file.close()
+            sp.run('logname >> ' + self.storage_dir + '/login.txt', shell=True)
+
             # w
             time = sp.getoutput(f"date")
             self.printsave(time + "  Collecting Login User Information via 'w' command ...")
@@ -76,6 +107,22 @@ class forensic_project:
             file.write("\n\n\n*****Result of command 'w'*****\n")	
             file.close()
             sp.run('w >> ' + self.storage_dir + '/login.txt', shell=True)
+
+            # users
+            time = sp.getoutput(f"date")
+            self.printsave(time + "  Collecting Login User accounts via 'users' command ...")
+            file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
+            file.write("\n\n\n*****Result of command 'users'*****\n")	
+            file.close()
+            sp.run('users >> ' + self.storage_dir + '/login.txt', shell=True)
+
+            # users | wc -w
+            time = sp.getoutput(f"date")
+            self.printsave(time + "  Collecting the number of users logged in via 'users | wc -w' command ...")
+            file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
+            file.write("\n\n\n*****Result of command 'users | wc -w'*****\n")	    
+            file.close()
+            sp.run('users | wc -w >> ' + self.storage_dir + '/login.txt', shell=True)
 
             # last
             time = sp.getoutput(f"date")
@@ -105,6 +152,13 @@ class forensic_project:
                 file.write("*****<User Information>*****\n\n")	
                 file.close()
 
+            # id
+            time = sp.getoutput(f"date")
+            self.printsave(time + "  Collecting account information via 'id' command ...")
+            file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
+            file.write("*****Result of command 'id'*****\n")	
+            file.close()
+            sp.run('id >> ' + self.storage_dir + '/user.txt', shell=True)
 
             # /etc/passwd 정보 수집
             time = sp.getoutput(f"date")
@@ -164,15 +218,15 @@ class forensic_project:
         return self.make_dir(), self.find_login_inf(), self.find_user_inf()
 
         
-
 if __name__ == '__main__':
     forensic_project().main()
+    #forensic_project(argument..).main()
 
-
-# parser = argparse.ArgumentParser()
-# parser.add_argument('-a', '--application', type = str, required = True, help = 'application name')
-# parser.add_argument('-t', '--datetime', type=str, help = 'format: YYYY-mm-ddTHH:MM:SS')
-# parser.add_argument('-d', '--destination', type=str, help = 'alpha or real')
+# parser = argparse.ArgumentParser(description="Takes a linux memory image and automate volatility3 to run against it")
+# parser.add_argument('-a', '--application', dest = '' metavar = '' type = str, required = True, help = 'application name')
+# parser.add_argument('-t', '--datetime', dest = '' type=str, help = 'format: YYYY-mm-ddTHH:MM:SS')
+# parser.add_argument('-d', '--destination', dest = '' type=str, help = 'alpha or real')
 # args = parser.parse_args() # 입력받은 인자값을 args에 저장
-# result = sp.getoutput(f"ps -ef")
-# print(f"{result}")
+#VOLATILITY = args.volpath #dest
+#source_image = args.filename
+#profile = args.profile
