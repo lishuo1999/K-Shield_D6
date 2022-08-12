@@ -22,14 +22,14 @@ def important_file_info():
 		subprocess.run('find $logdir -name "*.log" -mtime –3 –print' >> 'logfile_info.txt', shell=True)  # 3일 전까지 갱신된 파일 출력
 		subprocess.run('find $logdir -mmin -30 -type f –ls' >> 'logfile_info.txt', shell=True)  # 30분 이내의 수정한 파일 출력
 
-		subprocess.run('find $pwddir –type f -mtime –3 –print' >> 'logfile_info.txt', shell=True) 
-		subprocess.run('find $pwddir -mmin -30 -type f –ls' >> 'logfile_info.txt', shell=True) 
+		subprocess.run('find $pwddir –type f -mtime –3 –print' >> 'logfile_info.txt', shell=True)  # 3일 전까지 갱신된 파일 출력 
+		subprocess.run('find $pwddir -mmin -30 -type f –ls' >> 'logfile_info.txt', shell=True)  # 30분 이내의 수정한 파일 출력
 
-		subprocess.run('find $netdir –type f -mtime –3 –print' >> 'logfile_info.txt', shell=True) 
-		subprocess.run('find $netdir -mmin -30 -type f –ls' >> 'logfile_info.txt', shell=True) 
+		subprocess.run('find $netdir –type f -mtime –3 –print' >> 'logfile_info.txt', shell=True)   # 3일 전까지 갱신된 파일 출력
+		subprocess.run('find $netdir -mmin -30 -type f –ls' >> 'logfile_info.txt', shell=True)  # 30분 이내의 수정한 파일 출력
 
-		subprocess.run('find $memdir –type f -mtime –3 –print' >> 'logfile_info.txt', shell=True) 
-		subprocess.run('find $memdir -mmin -30 -type f –ls' >> 'logfile_info.txt', shell=True) 
+		subprocess.run('find $memdir –type f -mtime –3 –print' >> 'logfile_info.txt', shell=True)  # 3일 전까지 갱신된 파일 출력 
+		subprocess.run('find $memdir -mmin -30 -type f –ls' >> 'logfile_info.txt', shell=True)  # 30분 이내의 수정한 파일 출력
 
 	except Exception as e:
 		print("----------Error----------")
@@ -42,8 +42,9 @@ def executables_file_info():
 	try: 
 
 		print("----------Excutables File Information----------")
-
-		subprocess.run('find / -type f -perm -o+rx -print0 | xargs -0 sha1sum' >> 'Excutables_info.txt', shell=True) # 해시값 확인
+		
+		# 해시값을 확인(무결성 검사)을 통해서 특수권한 가진 파일 찾기
+		subprocess.run('find / -type f -perm -o+rx -print0 | xargs -0 sha1sum' >> 'Excutables_info.txt', shell=True) 
 
 	except Exception as e:
 		print("----------Error----------")
@@ -68,24 +69,25 @@ def hidden_file_info():
 
 		
 			       
-# 열린 파일 개수 확인
+# 열린 파일 확인
 
 def count_file_info():
 
 
 	print("----------File Count Information----------")
 
-
-	if lsof /var/log/messages != 0:
+	# 중요 디렉터리에 있는 파일이 열려있을 경우, 열려있는 파일의 목록 출력
+	# lsof +D 명령어 : 특정 디렉터리 내의 하위 디렉터리까지 존재하는 파일을 사용하고 있는 프로세스의 목록 출력
+	if 'lsof /var/log/messages != 0':
 		subprocess.run('losf +D /var/log/messages' >> 'count_file_info.txt', shell=True)
 
-	elif lsof /etc/passwd != 0: 
+	elif 'lsof /etc/passwd != 0': 
 		subprocess.run('losf +D /etc/passwd' >> 'count_file_info.txt', shell=True)
 
-	elif lsof /etc/sysconfig != 0:
+	elif 'lsof /etc/sysconfig != 0':
 		subprocess.run('losf +D /etc/sysconfig' >> 'count_file_info.txt', shell=True)
 
-	elif lsof /proc/cpuinf != 0:	
+	elif 'lsof /proc/cpuinf != 0':	
 		subprocess.run('losf +D /proc/cpuinfo' >> 'count_file_info.txt', shell=True)
 
 	else:
@@ -93,7 +95,8 @@ def count_file_info():
 
 
 			       
-			
+# 함수 호출
+
 def main():
 	return important_file_info(), executables_file_info(), hidden_file_info(), count_file_info()
 
@@ -104,6 +107,3 @@ if __name__ == '__main__':
 	
 	
 	
-# if문에 명령어 lsof 넣고 싶은데 인식을 하지 못함
-# ' ', ( ), [ ] 로 묶어봐도 NameError 가 나옴
-# 왜 ... 이럴 까 ....
