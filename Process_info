@@ -6,16 +6,18 @@ import subprocess
 import os,sys,time
 import pprint
 
-#시스템에 동장죽인 모든 프로세스 소유자 정보 출력
+dir=f"{os.environ['HOME']}/hyo/proc/proc_info"
+
+#시스템에 동작중인 모든 프로세스 소유자 정보 출력
 def ps_aux():
     subprocess.call('ps aux', shell=True)
-    subprocess.call('ps aux > ps_aux_result.txt', shell=True)
+    subprocess.call('ps aux > ps_aux_result.txt', shell=True) #명령어 실행 결과 ps_aux_result.txt 파일로 저장
 ps_aux()
 
-#부모프로세스와 자식 프로세스 확인
+#부모 프로세스와 자식 프로세스 확인
 def ps_ef():
     subprocess.call('ps -ef', shell=True)
-    subprocess.call('ps -ef > ps_ef_result.txt', shell=True)
+    subprocess.call('ps -ef > ps_ef_result.txt', shell=True) #명령어 실행 결과 ps_ef_result.txt 파일로 저장
 ps_ef()
 
 #실행되는 task 유동적 관찰, 실시간 os 상태 줄력
@@ -23,6 +25,7 @@ def top():
     process = os.popen('top -n 1')
     preprocessed = process.read()
     process.close()
+     #명령어 실행 결과 top_result.txt 파일로 저장
     output = 'top_result.txt'
     fout = open(output,'w')
     fout.write(preprocessed)
@@ -58,6 +61,7 @@ if __name__ == '__main__':
     CPUinfo = CPUinfo()
     for processor in CPUinfo.keys():
         print('CPUinfo[{0}]={1}'.format(processor,CPUinfo[processor]['model name']))
+         #명령어 실행 결과 CPUinfo_result.txt 파일로 저장
         f = open('CPUinfo_result.txt', 'w')
         f.write('CPUinfo[{0}]={1}'.format(processor,CPUinfo[processor]['model name']))
         f.close()
@@ -75,6 +79,7 @@ if __name__ == '__main__':
     meminfo = meminfo()
     print("Total memory:{0}".format(meminfo['MemTotal']))
     print("Free memory:{0}".format(meminfo['MemFree']))
+     #명령어 실행 결과 meminfo_result.txt 파일로 저장
     f = open('meminfo_result.txt', 'w')
     f.write("Free memory:{0}".format(meminfo['MemFree']))
     f.write("Free memory:{0}".format(meminfo['MemFree']))
@@ -83,5 +88,5 @@ if __name__ == '__main__':
 #시스템 부팅 메세지 
 def dmesg():
     subprocess.call('sudo dmesg', shell=True)
-    subprocess.call('sudo dmesg > dmesg_result.txt', shell=True)
+    subprocess.call('sudo dmesg > dmesg_result.txt', shell=True)  #명령어 실행 결과 dmesg_result.txt 파일로 저장
 dmesg()
