@@ -6,15 +6,19 @@ import subprocess
 import os,sys,time
 import pprint
 
+#시스템에 동장죽인 모든 프로세스 소유자 정보 출력
 def ps_aux():
     subprocess.call('ps aux', shell=True)
     subprocess.call('ps aux > ps_aux_result.txt', shell=True)
 ps_aux()
 
+#부모프로세스와 자식 프로세스 확인
 def ps_ef():
     subprocess.call('ps -ef', shell=True)
     subprocess.call('ps -ef > ps_ef_result.txt', shell=True)
 ps_ef()
+
+#실행되는 task 유동적 관찰, 실시간 os 상태 줄력
 def top():
     process = os.popen('top -n 1')
     preprocessed = process.read()
@@ -29,6 +33,7 @@ top()
 #Filename:CPU1.py
 #Filename:meminfo.py
 
+#프로세서 정보 출력, cpu에 관련된 다양한 정보 출력
 def CPUinfo():
 
     CPUinfo=OrderedDict()
@@ -57,6 +62,7 @@ if __name__ == '__main__':
         f.write('CPUinfo[{0}]={1}'.format(processor,CPUinfo[processor]['model name']))
         f.close()
 
+#메모리에 관한 상세 정보 출력
 def meminfo():
 
     meminfo = OrderedDict()
@@ -74,6 +80,7 @@ if __name__ == '__main__':
     f.write("Free memory:{0}".format(meminfo['MemFree']))
     f.close()
 
+#시스템 부팅 메세지 
 def dmesg():
     subprocess.call('sudo dmesg', shell=True)
     subprocess.call('sudo dmesg > dmesg_result.txt', shell=True)
