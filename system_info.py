@@ -4,24 +4,24 @@ import os
 import subprocess
 from datetime import date, datetime
 
-pwd = os.getcwd()
-savedir = f"{pwd}/sys_info"
+
+savedir = f"{os.environ['HOME']}/sys"
 
 def osmkdir():
-    if os.path.isdir(f"{pwd}/sys_info") == False:
-        subprocess.run(['mkdir', f"{pwd}/sys_info"])
+    if os.path.isdir(savedir) == False:
+        subprocess.run(['mkdir', savedir])
 
         
 def status(name):
 
     nowtime = datetime.now()
 
-    if os.path.isfile(f"{pwd}/status.txt") == True:
-        f = open(pwd + '/status.txt', "a")
+    if os.path.isfile(savedir + "/status.txt") == True:
+        f = open(savedir + '/status.txt', "a")
         f.write("{} : {}\n".format(name, nowtime.time()))
 
-    elif os.path.isfile(f"{pwd}/status.txt") == False:
-        f = open(pwd + '/status.txt', "w")
+    elif os.path.isfile(savedir + "/status.txt") == False:
+        f = open(savedir + '/status.txt', "w")
         f.write("today : {}\n".format(nowtime.date()))
         f.write("---------------------------------------\n")
         f.write("{} : {}\n.".format(name, nowtime.time()))
@@ -31,8 +31,7 @@ def status(name):
     print("-----------------------{}------------------\n".format(name))
     
     f.close()
-  
-  
+   
 
 def file_save(path, filename, savename):
     
@@ -84,7 +83,7 @@ def sys_info():
     os_sys("uname -r", "/system_info.txt")
     
     status("locale")
-    file_save("/etc/default/", "locale", "system_info.txt")
+    file_save("/etc/default/", "locale", "/system_info.txt")
 
 
     status("fstab")
@@ -124,7 +123,7 @@ def sys_info():
     
 
     status("df") # 파일시스템 크기와 용량
-    os_sys("df", "df.txt")
+    os_sys("df", "/df.txt")
     status("modules")
     os_sys("lsmod", "/modules.txt")
 
@@ -132,17 +131,17 @@ def sys_info():
     os_sys("sudo -V", "/sudo.txt")
 
     status("lsusb")
-    os_sys("osusb", "/usb_info.txt")
+    os_sys("lsusb", "/usb_info.txt")
     
     status("mount")
     os_sys("mount", "/mount.txt")
     
 
     status("df")
-    os_sys("df", "df.txt")
+    os_sys("df", "/df.txt")
 
     status("packages istall information")
-    os_sys("cat $MOTHERPATH/var/lib/dpkg/status | grep -B 1 'Status: install ok installed'", "pkg_inf.txt")
+    os_sys("cat $MOTHERPATH/var/lib/dpkg/status | grep -B 1 'Status: install ok installed'", "/pkg_inf.txt")
     
     
 
