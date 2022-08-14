@@ -9,7 +9,6 @@ now = datetime.now()
 
 # 경로 설정
 dir =f"{os.environ['HOME']}/K-Shiled_D6/net"
-print(dir)
 
 def make_dir(dir): 
     try:
