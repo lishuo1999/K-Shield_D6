@@ -8,7 +8,18 @@ from datetime import datetime
 now = datetime.now()
 
 # 경로 설정
-dir =f"{os.environ['HOME']}/Desktop"
+dir =f"{os.environ['HOME']}/K-Shiled_D6/net"
+print(dir)
+
+def make_dir(dir): 
+    try:
+        if os.path.isdir(dir) == False: # /usr 존재하지 않을때 mkdir 실행시켜 디렉토리 생성
+            sp.run([f"mkdir",  dir])  # 수집된 정보들 저장할 디렉토리 생성
+            print("Making directory to store evidence: " + dir)
+
+    except Exception as err:
+        print("Error creating directory: {err}")
+        return False
 
 
 def addtxt(filename):
@@ -160,7 +171,7 @@ def troute(): #네트워크 테스트, 측정 및 관리
 
 
 
-
+make_dir(dir)
 
 networkinfo()
 arpinfo()
