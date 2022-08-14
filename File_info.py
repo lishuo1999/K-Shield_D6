@@ -29,17 +29,17 @@ def important_file_info():
 
 		print("Log File Information")
 
-		subprocess.run('find $logdir -name "*.log" -mtime –3 –print' >> 'logfile_info.txt', shell=True)  # 3일 전까지 갱신된 파일 출력
-		subprocess.run('find $logdir -mmin -30 -type f –ls' >> 'logfile_info.txt', shell=True)  # 30분 이내의 수정한 파일 출력
+		subprocess.run('find $logdir -name "*.log" -mtime –3 –print' >> + dir + '/logfile_info.txt', shell=True)  # 3일 전까지 갱신된 파일 출력
+		subprocess.run('find $logdir -mmin -30 -type f –ls' >> + dir + '/logfile_info.txt', shell=True)  # 30분 이내의 수정한 파일 출력
 
-		subprocess.run('find $pwddir –type f -mtime –3 –print' >> 'logfile_info.txt', shell=True) 
-		subprocess.run('find $pwddir -mmin -30 -type f –ls' >> 'logfile_info.txt', shell=True) 
+		subprocess.run('find $pwddir –type f -mtime –3 –print' >> + dir + '/logfile_info.txt', shell=True) 
+		subprocess.run('find $pwddir -mmin -30 -type f –ls' >> + dir + '/logfile_info.txt', shell=True) 
 
-		subprocess.run('find $netdir –type f -mtime –3 –print' >> 'logfile_info.txt', shell=True) 
-		subprocess.run('find $netdir -mmin -30 -type f –ls' >> 'logfile_info.txt', shell=True) 
+		subprocess.run('find $netdir –type f -mtime –3 –print' >> + dir + '/logfile_info.txt', shell=True) 
+		subprocess.run('find $netdir -mmin -30 -type f –ls' >> + dir + '/logfile_info.txt', shell=True) 
 
-		subprocess.run('find $memdir –type f -mtime –3 –print' >> 'logfile_info.txt', shell=True) 
-		subprocess.run('find $memdir -mmin -30 -type f –ls' >> 'logfile_info.txt', shell=True) 
+		subprocess.run('find $memdir –type f -mtime –3 –print' >> + dir + '/logfile_info.txt', shell=True) 
+		subprocess.run('find $memdir -mmin -30 -type f –ls' >> + dir + '/logfile_info.txt', shell=True) 
 
 	except Exception as e:
 		print("- No Log File")
@@ -54,7 +54,7 @@ def executables_file_info():
 		print("Excutables File Information")
 	
 		# 해시값( 무결성 검사) 를 통해 특수 권한을 가진 파일 찾기
-		subprocess.run('find / -type f -perm -o+rx -print0 | xargs -0 sha1sum' >> 'Excutables_info.txt', shell=True) 
+		subprocess.run('find / -type f -perm -o+rx -print0 | xargs -0 sha1sum' >> + dir + '/Excutables_info.txt', shell=True) 
 
 	except Exception as e:
 		print("- No Excutables File")
@@ -69,10 +69,10 @@ def hidden_file_info():
 
 		print("Hidden File Information")
 
-		subprocess.run('find /var –type f –name ".*"' >> 'hidden_info.txt', shell=True)  # /var 디렉터린 내 숨긴 파일 찾기
-		subprocess.run('find /bin –type f –name ".*"' >> 'hidden_info.txt', shell=True)  # /bin 디렉터린 내 숨긴 파일 찾기
-		subprocess.run('find /etc –type f –name ".*"' >> 'hidden_info.txt', shell=True)  # /etc 디렉터린 내 숨긴 파일 찾기
-		subprocess.run('find /proc –type f –name ".*"' >> 'hidden_info.txt', shell=True)  # /proc 디렉터린 내 숨긴 파일 찾기
+		subprocess.run('find /var –type f –name ".*"' >> + dir + '/hidden_info.txt', shell=True)  # /var 디렉터린 내 숨긴 파일 찾기
+		subprocess.run('find /bin –type f –name ".*"' >> + dir + '/hidden_info.txt', shell=True)  # /bin 디렉터린 내 숨긴 파일 찾기
+		subprocess.run('find /etc –type f –name ".*"' >> + dir +' /hidden_info.txt', shell=True)  # /etc 디렉터린 내 숨긴 파일 찾기
+		subprocess.run('find /proc –type f –name ".*"' >> + dir + '/hidden_info.txt', shell=True)  # /proc 디렉터린 내 숨긴 파일 찾기
 
 	except Exception as e:
 		print("- No Hidden File")
@@ -92,17 +92,17 @@ def count_file_info():
 
 		if 'lsof "\etc\passwd" >= 1': 
 			subprocess.run('losf +D "/etc/passwd"')
-			f=open(dir + "count_file_info.txt", 'a', encoding = 'utf-8') # dir=홈 디렉토리, 홈 디렉터리에 .txt 파일 생성해서 계속 추가
+			f=open(dir + "/count_file_info.txt", 'a', encoding = 'utf-8') # dir=홈 디렉토리, 홈 디렉터리에 .txt 파일 생성해서 계속 추가
 			f.close()
 
 		elif 'lsof "\etc\sysconfig" >= 1':
 			subprocess.run('losf +D "/etc/sysconfig"')
-			f=open(dir + " count_file_info.txt", 'a', encoding = 'utf-8')
+			f=open(dir + "/count_file_info.txt", 'a', encoding = 'utf-8')
 			f.close()
 
 		elif 'lsof "\proc\cpuinf" >= 1':	
 			subprocess.run('losf +D "/proc/meminfo"')
-			f=open(dir + " count_file_info.txt", 'a', encoding = 'utf-8')
+			f=open(dir + "/count_file_info.txt", 'a', encoding = 'utf-8')
 			f.close()
 		else:
 			print("- Not Found Files") # 디렉토리 안의 해당 파일이 없는 경우 출력
