@@ -16,11 +16,11 @@ def main():
         if args.process:
             sp.call('python3 Process_info.py', shell=True)
         elif args.network:
-            sp.call('python3 network_info.py', shell=True)
+            sp.call('python3 Network_info.py', shell=True)
         elif args.system:
-            sp.call('python3 system_info.py', shell=True)
+            sp.call('python3 System_info.py', shell=True)
         elif args.file:
-            sp.call('python3 File_Info.py', shell=True)
+            sp.call('python3 File_info.py', shell=True)
         elif args.user:
             sp.call('python3 User_info.py', shell=True)
 

@@ -1,15 +1,7 @@
 import argparse
 from argparse import ArgumentParser
 import os
-import subprocess as sp
-
-white = "\033[1;37m"
-green = '\033[1;32m'
-red = '\033[1;31m'
-blue = '\033[1;34m'
-cyan = '\033[0;36m'
-yellow = '\033[0;33m'
-noclr = '\033[0m'   
+import subprocess as sp 
 
 class forensic_project:
     
