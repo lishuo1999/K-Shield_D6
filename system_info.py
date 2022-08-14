@@ -5,7 +5,7 @@ import subprocess
 from datetime import date, datetime
 
 
-savedir = f"{os.environ['HOME']}/sys"
+savedir = f"{os.environ['HOME']}/K-Shiled_D6/sys"
 
 def osmkdir():
     if os.path.isdir(savedir) == False:
