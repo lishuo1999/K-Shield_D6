@@ -7,7 +7,7 @@ from datetime import datetime
 class forensic_project:
     
     def __init__(self) -> None: #constructor
-        self.storage_dir = f"{os.environ['HOME']}/K-Shiled_D6/usr" # /home/leeseok/K-Shiled_D6/usr에 저장된 값 변수에 저장
+        self.storage_dir = f"{os.environ['HOME']}/K-Shield_D6/usr" # /home/leeseok/K-Shiled_D6/usr에 저장된 값 변수에 저장
 
     def printsave(self, *tmp): #터미널에 문자열 출력시키고 stdout.txt에 출력내용들 저장하는 함수
         file = open(self.storage_dir + '/stdout.txt', 'a', encoding = 'utf-8')
