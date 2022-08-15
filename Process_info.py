@@ -6,7 +6,7 @@ import subprocess
 import os,sys,time
 import pprint
 
-dir=f"{os.environ['HOME']}/K-Shiled_D6/proc"
+dir=f"{os.environ['HOME']}/K-Shield_D6/proc"
 def make_dir(dir): 
     try:
         if os.path.isdir(dir) == False: # /usr 존재하지 않을때 mkdir 실행시켜 디렉토리 생성
