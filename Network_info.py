@@ -8,7 +8,7 @@ from datetime import datetime
 now = datetime.now()
 
 # 경로 설정
-dir =f"{os.environ['HOME']}/K-Shiled_D6/net"
+dir =f"{os.environ['HOME']}/K-Shield_D6/net"
 
 def make_dir(dir): 
     try:
