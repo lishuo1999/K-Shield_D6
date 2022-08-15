@@ -3,7 +3,7 @@
 import os
 import subprocess
 
-dir = f"{os.environ['HOME']}/K-Shiled_D6/file"
+dir = f"{os.environ['HOME']}/K-Shield_D6/file"
 
 def make_dir(dir): 
     try:	
