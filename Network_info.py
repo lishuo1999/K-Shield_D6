@@ -10,15 +10,6 @@ now = datetime.now()
 # 경로 설정
 dir =f"{os.environ['HOME']}/K-Shield_D6/net"
 
-def make_dir(dir): 
-    try:
-        if os.path.isdir(dir) == False: # /usr 존재하지 않을때 mkdir 실행시켜 디렉토리 생성
-            sp.run([f"mkdir",  dir])  # 수집된 정보들 저장할 디렉토리 생성
-            print("Making directory to store evidence: " + dir)
-
-    except Exception as err:
-        print("Error creating directory: {err}")
-        return False
 
 
 def addtxt(filename):
@@ -30,8 +21,9 @@ def addtxt(filename):
 #def timestamp(time):
 #    sys.stdout  = open(dir+'/timestamp.txt','w') 
 #    print(time+": ", now)
-    
 
+if os.path.isdir(dir) == False:
+    sp.run ([f"mkdir","-p",  dir])
 
 #sudo apt-get install net-tools
 def networkinfo(): #인터페이스 설정 정보
@@ -169,8 +161,6 @@ def troute(): #네트워크 테스트, 측정 및 관리
 
 
 
-
-make_dir(dir)
 
 networkinfo()
 arpinfo()
