@@ -1,14 +1,14 @@
-# K-Shield_D6 사고조사 스크립트
+# K-Shield_D6 - 사고조사 스크립트
 
 Main
 ------------
 Automatically collect Linux artifacts script <br/>
-using options <br/>
--u: user
--f: file
--n: network
--p: process
--s: system
+Using options <br/>
+-u: user <br/>
+-f: file <br/>
+-n: network <br/>
+-p: process <br/>
+-s: system <br/>
 
 
 User_info
