@@ -56,7 +56,11 @@ def arpinfo(): # arp 명령어를 사용한 네트워크 정보 수집
         addtxt("arpinfo.txt")
         sp.run ('arp -a >> ' + dir + '/arpinfo.txt', shell=True) # 모든 arp 테이블 확인
         addtxt("arpinfo.txt")
-        sp.run ('arp -vn >> ' + dir + '/arpinfo.txt', shell=True) #
+        sp.run ('arp -an >> ' + dir + '/arpinfo.txt', shell=True) # 캐시 테이블 확인
+        addtxt("arpinfo.txt")
+        sp.run ('arp -v >> ' + dir + '/arpinfo.txt', shell=True) # 자세한 모드로 결과 출력
+        addtxt("arpinfo.txt")
+        sp.run ('arp -vn >> ' + dir + '/arpinfo.txt', shell=True) # n: Resolving 하지 않은 IP 주소로 출력
         addtxt("arpinfo.txt")
           
         print(" End time :  ", now)    
@@ -77,7 +81,7 @@ def netstatinfo(): #네트워크 연결상태, 라우팅테이블, 인터페이�
         addtxt("netstat.txt")
         sp.run ('netstat -i >>' + dir + '/netstat.txt', shell=True) #인터페이스 별 send/receive 통계 모니터링
         addtxt("netstat.txt")
-        sp.run ('netstat -rn >>' + dir + '/netstat.txt', shell=True)
+        sp.run ('netstat -rn >>' + dir + '/netstat.txt', shell=True) # routing 정보 보기
         addtxt("netstat.txt")
         sp.run ('netstat -es >> ' + dir + '/netstat.txt', shell=True)
         addtxt("netstat.txt")
@@ -87,7 +91,11 @@ def netstatinfo(): #네트워크 연결상태, 라우팅테이블, 인터페이�
         addtxt("netstat.txt")
         #sp.run ('netstat -v >> ' + dir + '/netstat.txt', shell=True) # 버전출력
         #addtxt("netstat.txt")
-        sp.run ('netstat -at >> ' + dir + '/netstat.txt', shell=True) # TCP만 확인
+        sp.run ('sudo netstat -t >> ' + dir + '/netstat.txt', shell=True) # listening 중인 TCP소켓
+        addtxt("netstat.txt")
+        sp.run ('sudo netstat -antup >> ' + dir + '/netstat.txt', shell=True) # listening 소켓 정보 상세
+        addtxt("netstat.txt")
+        sp.run ('netstat -at >> ' + dir + '/netstat.txt', shell=True) # TCP만 확인 (수신 대기 연결과 설정된 연결로만 범위 제한)
         addtxt("netstat.txt")
         sp.run ('netstat -au >> ' + dir + '/netstat.txt', shell=True) # UDP만 확인
         addtxt("netstat.txt")
@@ -113,11 +121,22 @@ def ssinfo():
     try:
         print("-------------- Getting Socket Info ... --------------\n Start time : ", now) 
       
+        sp.run ('ss -t >>' + dir + '/socket.txt', shell=True) # listening socket 제외 현재 연결된 소켓 표시
+        addtxt("socket.txt")
         sp.run ('ss -t >>' + dir + '/socket.txt', shell=True) # TCP socket 표시
         addtxt("socket.txt")
         sp.run ('ss -u >>' + dir + '/socket.txt', shell=True) # UDP socket 표시
         addtxt("socket.txt")
-        sp.run ('ss -a >> ' + dir + '/socket.txt', shell=True)
+        sp.run ('ss -a >> ' + dir + '/socket.txt', shell=True) # listening socket 포함 모든 소켓 표시
+        addtxt("socket.txt")
+        sp.run ('ss -lt src :80 >>' + dir + '/socket.txt', shell=True) # TCP 80 port listening 소켓 표시
+        addtxt("socket.txt")
+        sp.run ('ss -t src :443 >>' + dir + '/socket.txt', shell=True) # https에 연결한 외부 IP
+        addtxt("socket.txt")
+        sp.run ('ss -t dst :443 >>' + dir + '/socket.txt', shell=True) # https에 연결한 외부 IP
+        addtxt("socket.txt")
+        sp.run ('ss -pt dst :443 >>' + dir + '/socket.txt', shell=True) # 외부 https에 연결한 프로세스 목록
+        addtxt("socket.txt")
         
         print(" End time :  ", now)
 
@@ -146,6 +165,103 @@ def netmanagerinfo():
 def troute(): #네트워크 테스트, 측정 및 관리
     try:
         print("-------------- Getting Extra Network Info ... --------------\n Start time : ", now) 
+        sp.run ('ip addr show >>' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/dev >> ' + dir + '/extrainfo.txt', shell=True) #/proc 파일 시스템을 통해서 네트워크 정보 수집
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/dev_mcast >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/connector >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/fib_trie >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/fib_triestat >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/hci >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/icmp >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/icmp6 >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/if_inet6 >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/igmp >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/igmp6 >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/ip6_flowlabel >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/ip6_mr_cache >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/ip6_mr_vif >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/ip_mr_cache >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/ip_mr_vif >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('sudo cat /proc/net/ip_tables_matches >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/ipv6_route >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/l2cap >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/mcfilter >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/mcfilter6 >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/netlink >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/netstat >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/packet >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/protocols >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/psched >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/ptype >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/raw >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/raw6 >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/rfcomm >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/route >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/rt6_stats >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/rt_cache >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/sco >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/snmp >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/snmp6 >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/sockstat >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/sockstat6 >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/softnet_stat >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/tcp >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/tcp6 >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/udp >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/udp6 >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/udplite >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/udplite6 >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/unix >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+        sp.run('cat /proc/net/xfrm_stat >> ' + dir + '/extrainfo.txt', shell=True) 
+        addtxt("extrainfo.txt")
+
         
         #sp.run ('traceroute -V >>' + dir + '/extrainfo.txt', shell=True) # 네트워크 설정-이름,장치명,UUID등 출력
         #addtxt("extrainfo.txt")
