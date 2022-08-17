@@ -3,8 +3,13 @@
 from __future__ import print_function
 from collections import OrderedDict
 import subprocess
-import os,sys,time
+import os,sys
 import pprint
+from datetime import datetime
+
+red = '\033[1;31m'
+yellow = '\033[0;33m'
+noclr = '\033[0m'
 
 dir=f"{os.environ['HOME']}/K-Shield_D6/proc"
 def make_dir(dir): 
@@ -14,20 +19,24 @@ def make_dir(dir):
             print("Making directory to store evidence: " + dir)
 
     except Exception as err:
-        print("Error creating directory: {err}")
+        print("Error creating directory: ",f"{red}{err}{noclr}")
         return False
 make_dir(dir)
 
 #시스템에 동작중인 모든 프로세스 소유자 정보 출력
 def ps_aux():
     #subprocess.call('ps aux', shell=True)
-    print('---------- ps aux ---------------')
+    time = datetime.now()
+    print('time : ', f"{yellow}{time}{noclr}")
+    print('--------------- ps aux ---------------')
     subprocess.call('ps aux >' + dir + '/ps_aux_result.txt', shell=True) #명령어 실행 결과 ps_aux_result.txt 파일로 저장
 ps_aux()
 
 #부모 프로세스와 자식 프로세스 확인
 def ps_ef():
     #subprocess.call('ps -ef', shell=True)
+    time = datetime.now()
+    print('time : ', f"{yellow}{time}{noclr}")
     print('---------- ps -ef ---------------')
     subprocess.call('ps -ef >'  + dir + '/ps_ef_result.txt', shell=True) #명령어 실행 결과 ps_ef_result.txt 파일로 저장
 ps_ef()
@@ -42,6 +51,8 @@ def top():
     fout = open(output,'w')
     fout.write(preprocessed)
     fout.close()
+    time = datetime.now()
+    print('time : ', f"{yellow}{time}{noclr}")
     print('---------- top -n 1 ---------------')
 top()
 
@@ -71,6 +82,8 @@ def CPUinfo():
 if __name__ == '__main__':
     CPUinfo = CPUinfo()
     for processor in CPUinfo.keys():
+        time = datetime.now()
+        print('time : ', f"{yellow}{time}{noclr}")
         print('---------- CPUinfo ---------------')
          #명령어 실행 결과 CPUinfo_result.txt 파일로 저장
         f = open(dir + '/CPUinfo_result.txt', 'a')
@@ -79,7 +92,6 @@ if __name__ == '__main__':
 
 #메모리에 관한 상세 정보 출력
 def meminfo():
-
     meminfo = OrderedDict()
     with open('/proc/meminfo') as f:
         for line in f:
@@ -88,6 +100,8 @@ def meminfo():
 
 if __name__ == '__main__':
     meminfo = meminfo()
+    time = datetime.now()
+    print('time : ', f"{yellow}{time}{noclr}")
     print('---------- memoryinfo ---------------')
      #명령어 실행 결과 meminfo_result.txt 파일로 저장
     f = open(dir + '/meminfo_result.txt', 'w')
@@ -98,6 +112,8 @@ if __name__ == '__main__':
 #시스템 부팅 메세지 
 def dmesg():
     #subprocess.call('sudo dmesg', shell=True)
+    time = datetime.now()
+    print('time : ', f"{yellow}{time}{noclr}")
     print('---------- dmesg ---------------')
     subprocess.call('sudo dmesg >'  + dir + '/dmesg_result.txt', shell=True)  #명령어 실행 결과 dmesg_result.txt 파일로 저장
 dmesg()

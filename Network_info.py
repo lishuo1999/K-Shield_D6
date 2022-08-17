@@ -5,11 +5,25 @@ import os
 import subprocess as sp
 from datetime import datetime
 
-now = datetime.now()
+red = '\033[1;31m'
+yellow = '\033[0;33m'
+noclr = '\033[0m'
 
 # 경로 설정
 dir =f"{os.environ['HOME']}/K-Shield_D6/net"
 
+<<<<<<< HEAD
+=======
+def make_dir(dir): 
+    try:
+        if os.path.isdir(dir) == False: # /usr 존재하지 않을때 mkdir 실행시켜 디렉토리 생성
+            sp.run([f"mkdir",  dir])  # 수집된 정보들 저장할 디렉토리 생성
+            print("Making directory to store evidence: " + dir)
+
+    except Exception as err:
+        print("Error creating directory: ",f"{red}{err}{noclr}")
+        return False
+>>>>>>> a9aee20 (commit)
 
 
 def addtxt(filename):
@@ -21,14 +35,18 @@ def addtxt(filename):
 #def timestamp(time):
 #    sys.stdout  = open(dir+'/timestamp.txt','w') 
 #    print(time+": ", now)
+<<<<<<< HEAD
 
 if os.path.isdir(dir) == False:
     sp.run ([f"mkdir","-p",  dir])
+=======
+>>>>>>> a9aee20 (commit)
 
 #sudo apt-get install net-tools
 def networkinfo(): #인터페이스 설정 정보
     try:
-        print("-------------- Getting Network Info ... --------------\n Start time : ", now)
+        now = datetime.now()
+        print("-------------- Getting Network Info ... --------------\n Start time : ", f"{yellow}{now}{noclr}")
         
         sp.run ('ifconfig >>' + dir + '/networkinfo.txt', shell=True) # interface configuration
         addtxt("networkinfo.txt")        
@@ -40,17 +58,19 @@ def networkinfo(): #인터페이스 설정 정보
         addtxt("networkinfo.txt")
         sp.run('ip link show >> ' + dir + '/networkinfo.txt', shell=True)
         addtxt("networkinfo.txt")
-        
-        print(" End time :  ", now) 
+
+        now = datetime.now()
+        print(" End time :  ", f"{yellow}{now}{noclr}") 
        # addEndTime("networkinfo")     
                
     except Exception as e:
-        print("Failed to collect network information",e)
+        print("Failed to collect network information", f"{red}{e}{noclr}")
 
 
 def arpinfo(): # arp 명령어를 사용한 네트워크 정보 수집
     try:
-        print("-------------- Getting ARP Info ... --------------\n Start time : ", now) 
+        now = datetime.now()
+        print("-------------- Getting ARP Info ... --------------\n Start time : ", f"{yellow}{now}{noclr}") 
         
         sp.run ('arp -v >>' + dir + '/arpinfo.txt', shell=True) # arp상태 출력
         addtxt("arpinfo.txt")
@@ -62,16 +82,18 @@ def arpinfo(): # arp 명령어를 사용한 네트워크 정보 수집
         addtxt("arpinfo.txt")
         sp.run ('arp -vn >> ' + dir + '/arpinfo.txt', shell=True) # n: Resolving 하지 않은 IP 주소로 출력
         addtxt("arpinfo.txt")
-          
-        print(" End time :  ", now)    
+        
+        now = datetime.now()
+        print(" End time :  ", f"{yellow}{now}{noclr}")    
 
     except Exception as e:
-        print("Failed to collect network information",e)
+        print("Failed to collect network information", f"{red}{e}{noclr}")
 
 
 def netstatinfo(): #네트워크 연결상태, 라우팅테이블, 인터페이스 상태 등
     try:
-        print("-------------- Getting Netstat Info ... --------------\n Start time : ", now) 
+        now = datetime.now()
+        print("-------------- Getting Netstat Info ... --------------\n Start time : ", f"{yellow}{now}{noclr}") 
         
         sp.run ('netstat -na >>' + dir + '/netstat.txt', shell=True) # 네트워크에 대기중인 상태 확인
         addtxt("netstat.txt")
@@ -110,16 +132,17 @@ def netstatinfo(): #네트워크 연결상태, 라우팅테이블, 인터페이�
         sp.run ('sudo netstat -lptu >>' + dir + '/netstat.txt', shell=True) # l : listening, -p : program, t : tcp, u : udp
         addtxt("netstat.txt")
         
-        
-        print(" End time :  ", now)
+        now = datetime.now()
+        print(" End time :  ", f"{yellow}{now}{noclr}")
 
     except Exception as e:
-        print("Failed to collect network information",e)
+        print("Failed to collect network information",f"{red}{e}{noclr}")
 
 
 def ssinfo():
     try:
-        print("-------------- Getting Socket Info ... --------------\n Start time : ", now) 
+        now = datetime.now()
+        print("-------------- Getting Socket Info ... --------------\n Start time : ", f"{yellow}{now}{noclr}") 
       
         sp.run ('ss -t >>' + dir + '/socket.txt', shell=True) # listening socket 제외 현재 연결된 소켓 표시
         addtxt("socket.txt")
@@ -138,15 +161,17 @@ def ssinfo():
         sp.run ('ss -pt dst :443 >>' + dir + '/socket.txt', shell=True) # 외부 https에 연결한 프로세스 목록
         addtxt("socket.txt")
         
-        print(" End time :  ", now)
+        now = datetime.now()
+        print(" End time :  ", f"{yellow}{now}{noclr}")
 
     except Exception as e:
-        print("Failed to collect network information",e)
+        print("Failed to collect network information",f"{red}{e}{noclr}")
 
 
 def netmanagerinfo():
     try:
-        print("-------------- Getting Network Manger Info ... --------------\n Start time : ", now) 
+        now = datetime.now()
+        print("-------------- Getting Network Manger Info ... --------------\n Start time : ", f"{yellow}{now}{noclr}") 
         
         sp.run ('nmcli con show >>' + dir + '/netmanage.txt', shell=True) # 네트워크 설정-이름,장치명,UUID등 출력
         addtxt("netmanage.txt")
@@ -156,14 +181,17 @@ def netmanagerinfo():
         addtxt("netmanage.txt")
         sp.run ('nmcli device >>' + dir + '/netmanage.txt', shell=True) #디바이스 상세정보
         addtxt("netmanage.txt")
-        print(" End time :  ", now)
+
+        now = datetime.now()
+        print(" End time :  ", f"{yellow}{now}{noclr}")
 
     except Exception as e:
-        print("Failed to collect network information",e)
+        print("Failed to collect network information",f"{red}{e}{noclr}")
 
 #sudo apt-get install traceroute
 def troute(): #네트워크 테스트, 측정 및 관리
     try:
+<<<<<<< HEAD
         print("-------------- Getting Extra Network Info ... --------------\n Start time : ", now) 
         sp.run ('ip addr show >>' + dir + '/extrainfo.txt', shell=True) 
         addtxt("extrainfo.txt")
@@ -262,6 +290,10 @@ def troute(): #네트워크 테스트, 측정 및 관리
         sp.run('cat /proc/net/xfrm_stat >> ' + dir + '/extrainfo.txt', shell=True) 
         addtxt("extrainfo.txt")
 
+=======
+        now = datetime.now()
+        print("-------------- Getting Extra Network Info ... --------------\n Start time : ", f"{yellow}{now}{noclr}") 
+>>>>>>> a9aee20 (commit)
         
         #sp.run ('traceroute -V >>' + dir + '/extrainfo.txt', shell=True) # 네트워크 설정-이름,장치명,UUID등 출력
         #addtxt("extrainfo.txt")
@@ -269,13 +301,12 @@ def troute(): #네트워크 테스트, 측정 및 관리
         addtxt("extrainfo.txt")
         sp.run ('sudo lsof -i >>' + dir + '/extrainfo.txt', shell=True) #모든 네트워크 파일보기
         addtxt("extrainfo.txt")
-        print(" End time :  ", now)
+
+        now = datetime.now()
+        print(" End time :  ", f"{yellow}{now}{noclr}")
 
     except Exception as e:
-        print("Failed to collect network information",e)
-
-
-
+        print("Failed to collect network information",f"{red}{e}{noclr}")
 
 
 networkinfo()

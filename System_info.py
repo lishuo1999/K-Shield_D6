@@ -4,14 +4,21 @@ import os
 import subprocess
 from datetime import date, datetime
 
+<<<<<<< HEAD
 savedir = f"{os.environ['HOME']}/K-Shield_D6/sys"
+=======
+red = '\033[1;31m'
+yellow = '\033[0;33m'
+noclr = '\033[0m'
+savedir = f"{os.environ['HOME']}/K-Shiled_D6/sys"
+>>>>>>> a9aee20 (commit)
 
 def osmkdir():
     try:
         if os.path.isdir(savedir) == False:
             subprocess.run(['mkdir', savedir])
     except Exception as err:
-        print("Error creating directory: {err}")
+        print("Error creating directory: ",f"{red}{err}{noclr}")
         return False
 
         
@@ -29,8 +36,7 @@ def status(name):
         f.write("---------------------------------------\n")
         f.write("{} : {}\n.".format(name, nowtime.time()))
     
-    
-    print("-------------------time : {}-------------------\n".format(nowtime.time()))
+    print("-------------------time : {}-------------------\n".format(f"{yellow}{(nowtime.now())}{noclr}"))
     print("-----------------------{}------------------\n".format(name))
     
     f.close()
