@@ -73,7 +73,7 @@ def arpinfo(): # arp 명령어를 사용한 네트워크 정보 수집
         now = datetime.now()
         print(" End time :  ", f"{yellow}{now}{noclr}")    
     except Exception as e:
-        print("Failed to collect network information",e)
+        print("Failed to collect network information", f"{red}{e}{noclr}")
 def netstatinfo(): #네트워크 연결상태, 라우팅테이블, 인터페이스 상태 등
     try:
         now = datetime.now()
@@ -121,7 +121,7 @@ def netstatinfo(): #네트워크 연결상태, 라우팅테이블, 인터페이�
         now = datetime.now()
         print(" End time :  ", f"{yellow}{now}{noclr}")
     except Exception as e:
-        print("Failed to collect network information",e)
+        print("Failed to collect network information", f"{red}{e}{noclr}")
 def ssinfo():
     try:
         now = datetime.now()
@@ -149,7 +149,7 @@ def ssinfo():
         print(" End time :  ", f"{yellow}{now}{noclr}")
 
     except Exception as e:
-        print("Failed to collect network information",e)
+        print("Failed to collect network information", f"{red}{e}{noclr}")
 def netmanagerinfo():
     try:
         now = datetime.now()
@@ -167,7 +167,7 @@ def netmanagerinfo():
         now = datetime.now()
         print(" End time :  ", f"{yellow}{now}{noclr}")
     except Exception as e:
-        print("Failed to collect network information",e)
+        print("Failed to collect network information", f"{red}{e}{noclr}")
 #sudo apt-get install traceroute
 def troute(): #네트워크 테스트, 측정 및 관리
     try:
@@ -281,7 +281,7 @@ def troute(): #네트워크 테스트, 측정 및 관리
         now = datetime.now()
         print(" End time :  ", f"{yellow}{now}{noclr}")
     except Exception as e:
-        print("Failed to collect network information",e)
+        print("Failed to collect network information", f"{red}{e}{noclr}")
 
 make_dir(dir)
 networkinfo()
