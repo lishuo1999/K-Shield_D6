@@ -4,14 +4,11 @@ import os
 import subprocess
 from datetime import date, datetime
 
-<<<<<<< HEAD
-savedir = f"{os.environ['HOME']}/K-Shield_D6/sys"
-=======
 red = '\033[1;31m'
 yellow = '\033[0;33m'
 noclr = '\033[0m'
-savedir = f"{os.environ['HOME']}/K-Shiled_D6/sys"
->>>>>>> a9aee20 (commit)
+savedir = f"{os.environ['HOME']}/K-Shield_D6/sys"
+
 
 def osmkdir():
     try:
