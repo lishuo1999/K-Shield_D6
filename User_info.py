@@ -214,12 +214,3 @@ class forensic_project:
 if __name__ == '__main__':
     forensic_project().main()
     #forensic_project(argument..).main()
-
-# parser = argparse.ArgumentParser(description="Takes a linux memory image and automate volatility3 to run against it")
-# parser.add_argument('-a', '--application', dest = '' metavar = '' type = str, required = True, help = 'application name')
-# parser.add_argument('-t', '--datetime', dest = '' type=str, help = 'format: YYYY-mm-ddTHH:MM:SS')
-# parser.add_argument('-d', '--destination', dest = '' type=str, help = 'alpha or real')
-# args = parser.parse_args() # 입력받은 인자값을 args에 저장
-#VOLATILITY = args.volpath #dest
-#source_image = args.filename
-#profile = args.profile
