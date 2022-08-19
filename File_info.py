@@ -88,6 +88,7 @@ def hidden_file_info():
 			       
 # 열린 파일의 목록 확인
 
+
 def count_file_info():
 	time = datetime.now()
 	print(f"{yellow}{time}{noclr}" + "----------Open File Information----------")
@@ -96,15 +97,15 @@ def count_file_info():
 		
 		# /etc/passwd 디렉토리에 속한 파일이 하나 이상 열려 있을 경우, 그 디렉토리에 속한 하위 파일들 모두 출력
 
-		if 'lsof "/etc" >= 1': 
-			subprocess.run('lsof +D "/etc"')
-			f=open(dir + "/count_file_info.txt", 'a', encoding = 'utf-8') # dir=홈 디렉토리, 홈 디렉터리에 .txt 파일 생성해서 계속 추가
-			f.close()
+		if 'lsof /etc >= 1': 
+			subprocess.run('lsof +D /etc 2>/dev/null >' + dir + '/count_file_info.txt', shell=True)
+			#f=open(dir + "/count_file_info.txt", 'a', encoding = 'utf-8') # dir=홈 디렉토리, 홈 디렉터리에 .txt 파일 생성해서 계속 추가
+			#f.close()
 
-		elif 'lsof "/proc" >= 1':	
-			subprocess.run('lsof +D "/proc"')
-			f=open(dir + "/count_file_info.txt", 'a', encoding = 'utf-8')
-			f.close()
+		elif 'lsof \proc >= 1':	
+			subprocess.run('lsof +D /proc 2>/dev/null >>' + dir + '/count_file_info.txt', shell=True)
+			#f=open(dir + "/count_file_info.txt", 'a', encoding = 'utf-8')
+			#f.close()
 		else:
 			print("- Not Found Files") # 디렉토리 안의 해당 파일이 없는 경우 출력
 
@@ -113,6 +114,7 @@ def count_file_info():
 		'''
 		print("- No Open File") # 열려 있는 파일이 0개인 경우 출력
 		'''
+
 		
 def main():
 	return make_dir(dir), important_file_info(), executables_file_info(), hidden_file_info(), count_file_info()
