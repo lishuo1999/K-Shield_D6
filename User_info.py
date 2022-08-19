@@ -21,6 +21,9 @@ class forensic_project:
 
     def make_dir(self): 
         try:
+            dir_main = f"{os.environ['HOME']}/K-Shield_D6"
+            if os.path.isdir(dir_main) == False: 
+                sp.run([f"mkdir",  dir_main])
             if os.path.isdir(self.storage_dir) == False: # /usr 존재하지 않을때 mkdir 실행시켜 디렉토리 생성
                     sp.run([f"mkdir",  self.storage_dir])  # 수집된 정보들 저장할 디렉토리 생성
                     self.printsave("Making directory to store evidence: " + self.storage_dir)

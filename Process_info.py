@@ -11,15 +11,25 @@ red = '\033[1;31m'
 yellow = '\033[0;33m'
 noclr = '\033[0m'
 
+dir_main = f"{os.environ['HOME']}/K-Shield_D6"
+if os.path.isdir(dir_main) == False: 
+    subprocess.run([f"mkdir",  dir_main])
 dir=f"{os.environ['HOME']}/K-Shield_D6/proc"
+
+def printsave(*tmp): #터미널에 문자열 출력시키고 stdout.txt에 출력내용들 저장하는 함수
+        file = open(dir + '/stdout.txt', 'a', encoding = 'utf-8')
+        print(*tmp) #터미널에 문자열 출력
+        print(*tmp, file=file) #문자열 파일에 저장
+        file.close()
+
 def make_dir(dir): 
     try:
         if os.path.isdir(dir) == False: # /usr 존재하지 않을때 mkdir 실행시켜 디렉토리 생성
             subprocess.run([f"mkdir",  dir])  # 수집된 정보들 저장할 디렉토리 생성
-            print("Making directory to store evidence: " + dir)
+            printsave("Making directory to store evidence: " + dir)
 
     except Exception as err:
-        print("Error creating directory: ",f"{red}{err}{noclr}")
+        printsave("Error creating directory: ",f"{red}{err}{noclr}")
         return False
 make_dir(dir)
 
@@ -27,7 +37,7 @@ make_dir(dir)
 def ps_aux():
     #subprocess.call('ps aux', shell=True)
     time = datetime.now()
-    print( f"{yellow}{time}{noclr}" + " Collecting Process Info via ps aux command ...")
+    printsave( f"{yellow}{time}{noclr}" + " Collecting Process Info via ps aux command ...")
 
     subprocess.call('ps aux >' + dir + '/ps_aux_result.txt', shell=True) #명령어 실행 결과 ps_aux_result.txt 파일로 저장
 ps_aux()
@@ -36,7 +46,7 @@ ps_aux()
 def ps_ef():
     #subprocess.call('ps -ef', shell=True)
     time = datetime.now()
-    print( f"{yellow}{time}{noclr}" + " Collecting Process Info via ps -ef command ...")
+    printsave( f"{yellow}{time}{noclr}" + " Collecting Process Info via ps -ef command ...")
     
     subprocess.call('ps -ef >'  + dir + '/ps_ef_result.txt', shell=True) #명령어 실행 결과 ps_ef_result.txt 파일로 저장
 ps_ef()
@@ -52,7 +62,7 @@ def top():
     fout.write(preprocessed)
     fout.close()
     time = datetime.now()
-    print( f"{yellow}{time}{noclr}" + " Collecting Process Info via top -n 1 command ...")
+    printsave( f"{yellow}{time}{noclr}" + " Collecting Process Info via top -n 1 command ...")
     
 top()
 
@@ -83,7 +93,7 @@ if __name__ == '__main__':
     CPUinfo = CPUinfo()
     for processor in CPUinfo.keys():
         time = datetime.now()
-        print( f"{yellow}{time}{noclr}" + " Collecting Process Info via CPUinfo command ...")
+        printsave( f"{yellow}{time}{noclr}" + " Collecting Process Info via CPUinfo command ...")
         
          #명령어 실행 결과 CPUinfo_result.txt 파일로 저장
         f = open(dir + '/CPUinfo_result.txt', 'a')
@@ -101,7 +111,7 @@ def meminfo():
 if __name__ == '__main__':
     meminfo = meminfo()
     time = datetime.now()
-    print( f"{yellow}{time}{noclr}" + " Collecting Process Info via memoryinfo command ...")
+    printsave( f"{yellow}{time}{noclr}" + " Collecting Process Info via memoryinfo command ...")
     
      #명령어 실행 결과 meminfo_result.txt 파일로 저장
     f = open(dir + '/meminfo_result.txt', 'w')
@@ -113,7 +123,7 @@ if __name__ == '__main__':
 def dmesg():
     #subprocess.call('sudo dmesg', shell=True)
     time = datetime.now()
-    print( f"{yellow}{time}{noclr}" + " Collecting Process Info via dmesg command ...")
+    printsave( f"{yellow}{time}{noclr}" + " Collecting Process Info via dmesg command ...")
     
     subprocess.call('sudo dmesg >'  + dir + '/dmesg_result.txt', shell=True)  #명령어 실행 결과 dmesg_result.txt 파일로 저장
 dmesg()

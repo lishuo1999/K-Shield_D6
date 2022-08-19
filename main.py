@@ -11,19 +11,14 @@ blue = '\033[1;34m'
 cyan = '\033[0;36m'
 yellow = '\033[0;33m'
 noclr = '\033[0m'  
-
-'''
-def cgroup_e():
-    dir = f"{os.environ['HOME']}/K-Shield_D6"
-    cpu =sp.getoutput("mpstat | tail -1 | awk '{print 100-$NF}'")
-    print(cpu)
-    if float(cpu) > 10: 
-        sp.run('echo "1000000" > ' + dir + '/cgroup/cpu/cpu.cfs_period_us', shell=True)
-        sp.run('echo "200000" > ' + dir + '/cgroup/cpu/cpu.cfs_quota_us', shell=True)
-    print(cpu)
-'''
-    
+        
 def main():
+    os.nice(19) #우선순위 설정
+   
+    dir_main = f"{os.environ['HOME']}/K-Shield_D6"
+    if os.path.isdir(dir_main) == False: 
+            sp.run([f"mkdir",  dir_main])
+
     parser = argparse.ArgumentParser(description="Automatically collect Linux artifacts script")
     parser.add_argument('-p', '--process', dest = 'process', action = 'store_true', help = 'Collecting data about process')
     parser.add_argument('-n', '--network', dest = 'network', action = 'store_true', help = 'Collecting data about network')
@@ -36,13 +31,15 @@ def main():
     parser.add_argument('--name', dest = 'name', type=str)
     parser.add_argument('--comment', dest = 'comment', type=str) #required=True
 
-    parser.add_argument('--directory', dest = 'directory', type=str) #선택사항
-    
+    parser.add_argument('-d', '--directory', dest = 'directory', type=str) #선택사항
+
     args = parser.parse_args() # 입력받은 인자값을 args에 저장
 
-    time = datetime.now()
-    storage_dir = f"{os.environ['HOME']}/K-Shield_D6/personal_data" # /home/leeseok/K-Shiled_D6/usr에 저장된 값 변수에 저장
-
+    if args.directory:
+        storage_dir = args.directory
+    else:
+        storage_dir = f"{os.environ['HOME']}/K-Shield_D6/result" 
+        
     try:
         if os.path.isdir(storage_dir) == False: # /usr 존재하지 않을때 mkdir 실행시켜 디렉토리 생성
             sp.run([f"mkdir",  storage_dir])  # 수집된 정보들 저장할 디렉토리 생성
@@ -52,7 +49,8 @@ def main():
         print("Error creating directory: ", f"{red}{err}{noclr}")
         return False
 
-    file = open(storage_dir + '/printout.txt', 'a', encoding = 'utf-8')
+    time = datetime.now()
+    file = open(storage_dir + '/personal_data.txt', 'a', encoding = 'utf-8')
     name = ''' _______   _     _          _             __   ___  
 |__   __| (_)   | |         | |           /_ | / _ \ 
    | |_ __ _ ___| |__  _   _| |________   _| || | | |

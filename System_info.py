@@ -8,6 +8,10 @@ from datetime import date, datetime
 red = '\033[1;31m'
 yellow = '\033[0;33m'
 noclr = '\033[0m'
+
+dir_main = f"{os.environ['HOME']}/K-Shield_D6"
+if os.path.isdir(dir_main) == False: 
+    subprocess.run([f"mkdir",  dir_main])
 savedir = f"{os.environ['HOME']}/K-Shield_D6/sys"
 
 
