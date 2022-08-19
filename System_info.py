@@ -1,3 +1,4 @@
+from ast import Name
 from genericpath import isfile
 import platform
 import os
@@ -33,8 +34,8 @@ def status(name):
         f.write("---------------------------------------\n")
         f.write("{} : {}\n.".format(name, nowtime.time()))
     
-    print("-------------------time : {}-------------------\n".format(f"{yellow}{(nowtime.now())}{noclr}"))
-    print("-----------------------{}------------------\n".format(name))
+    print(f"{yellow}{(nowtime.now())}{noclr}" + " Collecting System Info via {} ...".format(name) )
+    #print("-----------------------{}------------------\n".format(name))
     
     f.close()
    
@@ -122,7 +123,7 @@ def sys_info():
     os_sys("sudo -V", "/sudo.txt")
 
     status("lsusb") #usb information
-    os_sys("osusb", "/usb_info.txt")
+    os_sys("lsusb", "/usb_info.txt")
     
     status("mount") #mount된 정보
     os_sys("mount", "/mount.txt")
