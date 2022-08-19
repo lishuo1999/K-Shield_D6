@@ -27,8 +27,8 @@ make_dir(dir)
 def ps_aux():
     #subprocess.call('ps aux', shell=True)
     time = datetime.now()
-    print('time : ', f"{yellow}{time}{noclr}")
-    print('--------------- ps aux ---------------')
+    print( f"{yellow}{time}{noclr}" + " Collecting Process info via ps aux command ...")
+
     subprocess.call('ps aux >' + dir + '/ps_aux_result.txt', shell=True) #명령어 실행 결과 ps_aux_result.txt 파일로 저장
 ps_aux()
 
@@ -36,8 +36,8 @@ ps_aux()
 def ps_ef():
     #subprocess.call('ps -ef', shell=True)
     time = datetime.now()
-    print('time : ', f"{yellow}{time}{noclr}")
-    print('---------- ps -ef ---------------')
+    print( f"{yellow}{time}{noclr}" + " Collecting Process info via ps -ef command ...")
+    
     subprocess.call('ps -ef >'  + dir + '/ps_ef_result.txt', shell=True) #명령어 실행 결과 ps_ef_result.txt 파일로 저장
 ps_ef()
 
@@ -52,8 +52,8 @@ def top():
     fout.write(preprocessed)
     fout.close()
     time = datetime.now()
-    print('time : ', f"{yellow}{time}{noclr}")
-    print('---------- top -n 1 ---------------')
+    print( f"{yellow}{time}{noclr}" + " Collecting Process info via top -n 1 command ...")
+    
 top()
 
 #Filename:CPU1.py
@@ -83,8 +83,8 @@ if __name__ == '__main__':
     CPUinfo = CPUinfo()
     for processor in CPUinfo.keys():
         time = datetime.now()
-        print('time : ', f"{yellow}{time}{noclr}")
-        print('---------- CPUinfo ---------------')
+        print( f"{yellow}{time}{noclr}" + " Collecting Process info via CPUinfo command ...")
+        
          #명령어 실행 결과 CPUinfo_result.txt 파일로 저장
         f = open(dir + '/CPUinfo_result.txt', 'a')
         f.write('CPUinfo[{0}]={1}\n'.format(processor,CPUinfo[processor]['model name']))
@@ -101,8 +101,8 @@ def meminfo():
 if __name__ == '__main__':
     meminfo = meminfo()
     time = datetime.now()
-    print('time : ', f"{yellow}{time}{noclr}")
-    print('---------- memoryinfo ---------------')
+    print( f"{yellow}{time}{noclr}" + " Collecting Process info via memoryinfo command ...")
+    
      #명령어 실행 결과 meminfo_result.txt 파일로 저장
     f = open(dir + '/meminfo_result.txt', 'w')
     f.write("Total memory:{0}\n".format(meminfo['MemTotal']))
@@ -113,7 +113,7 @@ if __name__ == '__main__':
 def dmesg():
     #subprocess.call('sudo dmesg', shell=True)
     time = datetime.now()
-    print('time : ', f"{yellow}{time}{noclr}")
-    print('---------- dmesg ---------------')
+    print( f"{yellow}{time}{noclr}" + " Collecting Process info via dmesg command ...")
+    
     subprocess.call('sudo dmesg >'  + dir + '/dmesg_result.txt', shell=True)  #명령어 실행 결과 dmesg_result.txt 파일로 저장
 dmesg()
