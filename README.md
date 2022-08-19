@@ -13,7 +13,8 @@ Using options <br/>
 
 User_info
 ------------
-![user22](https://user-images.githubusercontent.com/69711911/184647136-a611ad21-99f9-41f5-90fe-2b561ce864a3.JPG)
+![USER_INFO](https://user-images.githubusercontent.com/69711911/185564103-26aba49b-cf92-4d1b-8976-3ed11ba48eac.JPG)
+
 
 
 File_info
@@ -23,15 +24,17 @@ File_info
 
 Network_info
 ------------
-![net](https://user-images.githubusercontent.com/69711911/184645792-1654b53e-3da6-4ada-b823-782aa244d51c.JPG)
+![NETWORK_INFO](https://user-images.githubusercontent.com/69711911/185564134-96f44f4b-bf89-4a5d-8f02-4d46e7707ea0.JPG)
+
 
 
 Process_info
 ------------
-![proc](https://user-images.githubusercontent.com/69711911/184645978-15f78ad4-3883-42a2-952e-c51193154894.JPG)
+![process](https://user-images.githubusercontent.com/69711911/185564155-bc72fd0e-df69-4cd4-a36c-7347465e126e.JPG)
 
 
 System_info
 ------------
-![sys](https://user-images.githubusercontent.com/69711911/184646016-276c50d1-9539-4ccb-adbd-99e02898cbb9.JPG)
+![SYSTEM_INFO](https://user-images.githubusercontent.com/69711911/185564180-a5c14141-aca7-4116-be33-e8131ebbf009.JPG)
+
 
