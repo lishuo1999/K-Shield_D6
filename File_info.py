@@ -34,20 +34,20 @@ def important_file_info():
 		time = datetime.now()
 		print(f"{yellow}{time}{noclr}" + "  Log File Information")
 
-		subprocess.run('find $logdir -name "*.log" -mtime –3 –print' >> + dir + '/logfile_info.txt', shell=True)  # 3일 전까지 갱신된 파일 출력
-		subprocess.run('find $logdir -mmin -30 -type f –ls' >> + dir + '/logfile_info.txt', shell=True)  # 30분 이내의 수정한 파일 출력
+		subprocess.run('find $logdir -name "*.log" -mtime -3 >>' + dir + '/logfile_info.txt', shell=True)  # 3일 전까지 갱신된 파일 출력
+		subprocess.run('find $logdir -mmin -30 -type f -ls >>' + dir + '/logfile_info.txt', shell=True)  # 30분 이내의 수정한 파일 출력
 
-		subprocess.run('find $pwddir –type f -mtime –3 –print' >> + dir + '/logfile_info.txt', shell=True) 
-		subprocess.run('find $pwddir -mmin -30 -type f –ls' >> + dir + '/logfile_info.txt', shell=True) 
+		subprocess.run('find $pwddir -type f -mtime -3 >>' + dir + '/logfile_info.txt', shell=True) 
+		subprocess.run('find $pwddir -mmin -30 -type f -ls >>' + dir + '/logfile_info.txt', shell=True) 
 
-		subprocess.run('find $netdir –type f -mtime –3 –print' >> + dir + '/logfile_info.txt', shell=True) 
-		subprocess.run('find $netdir -mmin -30 -type f –ls' >> + dir + '/logfile_info.txt', shell=True) 
+		subprocess.run('find $netdir -type f -mtime -3 >>' + dir + '/logfile_info.txt', shell=True) 
+		subprocess.run('find $netdir -mmin -30 -type f -ls >>' + dir + '/logfile_info.txt', shell=True) 
 
-		subprocess.run('find $memdir –type f -mtime –3 –print' >> + dir + '/logfile_info.txt', shell=True) 
-		subprocess.run('find $memdir -mmin -30 -type f –ls' >> + dir + '/logfile_info.txt', shell=True) 
+		subprocess.run('find $memdir -type f -mtime -3 >>' + dir + '/logfile_info.txt', shell=True) 
+		subprocess.run('find $memdir -mmin -30 -type f -ls >>' + dir + '/logfile_info.txt', shell=True) 
 
 	except Exception as e:
-		print(f"{red}{e}{noclr}")
+		print("error: ", f"{red}{e}{noclr}")
 		#print("- No Log File")
 		
 
@@ -60,8 +60,7 @@ def executables_file_info():
 		print(f"{yellow}{time}{noclr}" + "  Excutables File Information")
 	
 		# 해시값( 무결성 검사) 를 통해 특수 권한을 가진 파일 찾기
-		subprocess.run('find / -type f -perm -o+rx -print0 | xargs -0 sha1sum' >> + dir + '/Excutables_info.txt', shell=True) 
-
+		subprocess.run('find / -type f -perm -o+rx -print0 2>/dev/null | xargs -0 sha1sum >>' + dir + '/Excutables_info.txt', shell=True) 
 	except Exception as e:
 		print(f"{red}{e}{noclr}")
 		#print("- No Excutables File")
@@ -76,10 +75,10 @@ def hidden_file_info():
 		time = datetime.now()
 		print(f"{yellow}{time}{noclr}" + "  Hidden File Information")
 
-		subprocess.run('find /var –type f –name ".*"' >> + dir + '/hidden_info.txt', shell=True)  # /var 디렉터린 내 숨긴 파일 찾기
-		subprocess.run('find /bin –type f –name ".*"' >> + dir + '/hidden_info.txt', shell=True)  # /bin 디렉터린 내 숨긴 파일 찾기
-		subprocess.run('find /etc –type f –name ".*"' >> + dir +' /hidden_info.txt', shell=True)  # /etc 디렉터린 내 숨긴 파일 찾기
-		subprocess.run('find /proc –type f –name ".*"' >> + dir + '/hidden_info.txt', shell=True)  # /proc 디렉터린 내 숨긴 파일 찾기
+		subprocess.run('find /var -type f -name ".*" >>' + dir + '/hidden_info.txt', shell=True)  # /var 디렉터린 내 숨긴 파일 찾기
+		subprocess.run('find /bin -type f -name ".*" >>' + dir + '/hidden_info.txt', shell=True)  # /bin 디렉터린 내 숨긴 파일 찾기
+		subprocess.run('find /etc -type f -name ".*" >>' + dir +' /hidden_info.txt', shell=True)  # /etc 디렉터린 내 숨긴 파일 찾기
+		subprocess.run('find /proc -type f -name ".*" >>' + dir + '/hidden_info.txt', shell=True)  # /proc 디렉터린 내 숨긴 파일 찾기
 
 	except Exception as e:
 		print(f"{red}{e}{noclr}")
@@ -97,18 +96,13 @@ def count_file_info():
 		
 		# /etc/passwd 디렉토리에 속한 파일이 하나 이상 열려 있을 경우, 그 디렉토리에 속한 하위 파일들 모두 출력
 
-		if 'lsof "\etc\passwd" >= 1': 
-			subprocess.run('losf +D "/etc/passwd"')
+		if 'lsof "/etc" >= 1': 
+			subprocess.run('lsof +D "/etc"')
 			f=open(dir + "/count_file_info.txt", 'a', encoding = 'utf-8') # dir=홈 디렉토리, 홈 디렉터리에 .txt 파일 생성해서 계속 추가
 			f.close()
 
-		elif 'lsof "\etc\sysconfig" >= 1':
-			subprocess.run('losf +D "/etc/sysconfig"')
-			f=open(dir + "/count_file_info.txt", 'a', encoding = 'utf-8')
-			f.close()
-
-		elif 'lsof "\proc\cpuinf" >= 1':	
-			subprocess.run('losf +D "/proc/meminfo"')
+		elif 'lsof "/proc" >= 1':	
+			subprocess.run('lsof +D "/proc"')
 			f=open(dir + "/count_file_info.txt", 'a', encoding = 'utf-8')
 			f.close()
 		else:
