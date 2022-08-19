@@ -40,7 +40,7 @@ class forensic_project:
             # lastb: 시스템 로그인 실패 기록을 확인
             #먼저 터미널에 출력한 문자열 출력시키고 파일에 저장한 후 lastb 명령어 실행시켜 출력결과 login.txt에 저장
             time = datetime.now()
-            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting system login failure history via 'lastb' command ...") #
+            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting System Login Failure History via 'lastb' command ...") #
             file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
             file.write("*****Result of command 'lastb'*****\n")	
             file.close()
@@ -48,7 +48,7 @@ class forensic_project:
                 
             # lastlog: 사용자의 마지막 로그인 시간, 호스트명, 포트 등 확인
             time = datetime.now()
-            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting system login history via 'lastlog' command ...")
+            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting System Login History via 'lastlog' command ...")
             file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Result of command 'lastlog'*****\n")	
             file.close()
@@ -64,7 +64,7 @@ class forensic_project:
 
             # who -aH: 사용자의 모든 정보 출력하고 컬럼명 출력
             time = datetime.now()
-            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting all Login User Information  via 'who -aH' command ...")
+            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting All Login User Information  via 'who -aH' command ...")
             file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Result of command 'who -aH'*****\n")	
             file.close()
@@ -72,7 +72,7 @@ class forensic_project:
 
             # who -q: 사용자의 모든 정보 출력하고 컬럼명 출력
             time = datetime.now()
-            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting Login User accounts and number of users logged in via 'who -q' command ...")
+            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting Login User Accounts and Number of users Logged in via 'who -q' command ...")
             file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Result of command 'who -q'*****\n")	
             file.close()
@@ -80,7 +80,7 @@ class forensic_project:
 
             # whoami: 실질적인 사용자 계정 출력(사용중인 권한자 계정)
             time = datetime.now()
-            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting Login User accounts via 'whoami' command ...")
+            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting Login User Accounts via 'whoami' command ...")
             file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Result of command 'whoami'*****\n")	
             file.close()
@@ -88,7 +88,7 @@ class forensic_project:
 
             # logname: 사용자의 로그인 계정 출력 (최초의 로그인 계정)
             time = datetime.now()
-            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting Login User accounts via 'logname' command ...")
+            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting Login User Accounts via 'logname' command ...")
             file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Result of command 'logname'*****\n")	
             file.close()
@@ -104,7 +104,7 @@ class forensic_project:
 
             # users: 현재 시스템에 로그인한 사용자 계정들 출력
             time = datetime.now()
-            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting Login User accounts via 'users' command ...")
+            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting Login User Accounts via 'users' command ...")
             file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Result of command 'users'*****\n")	
             file.close()
@@ -112,7 +112,7 @@ class forensic_project:
 
             # users | wc -w: 현재 로그인 사용자 수
             time = datetime.now()
-            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting the number of users logged in via 'users | wc -w' command ...")
+            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting The Number of users Logged in via 'users | wc -w' command ...")
             file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Result of command 'users | wc -w'*****\n")	    
             file.close()
@@ -120,7 +120,7 @@ class forensic_project:
 
             # last: 로그인 및 로그아웃 정보를 확인 (재부팅 정보)
             time = datetime.now()
-            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting login and logout information via 'last' command ...")
+            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting Login and Logout Information via 'last' command ...")
             file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Result of command 'last'*****\n")	
             file.close()
@@ -129,7 +129,7 @@ class forensic_project:
             # /var/log/auth.log: 관리자 권한으로 실행된 명령에 대해 시간, 계정명, 시도한 작업, 실패 여부 등을 저장
             # 여기서 grep 사용하여 실패한 SSH 로그인 목록 출력
             time = datetime.now()
-            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting file /etc/auth.log contents ...")
+            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting File /etc/auth.log contents ...")
             file = open(self.storage_dir + "/login.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Result of failed SSH login information in file /var/log/auth.log*****\n")	
             file.close()
@@ -149,7 +149,7 @@ class forensic_project:
 
             # id: 시스템에 등록된 아이디에 대한 정보를 출력하는 명령어
             time = datetime.now()
-            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting account information via 'id' command ...")
+            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting Account Information via 'id' command ...")
             file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
             file.write("*****Result of command 'id'*****\n")	
             file.close()
@@ -157,7 +157,7 @@ class forensic_project:
 
             # /etc/passwd 정보 수집
             time = datetime.now()
-            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting file /etc/passwd contents ...")
+            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting File /etc/passwd contents ...")
             file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
             file.write("*****Results of file /etc/passwd content collection*****\n")	
             file.close()
@@ -165,7 +165,7 @@ class forensic_project:
 
             # /etc/shadow 정보 수집
             time = datetime.now()
-            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting file /etc/shadow contents ...")
+            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting File /etc/shadow contents ...")
             file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Results of file /etc/shadow content collection*****\n")	
             file.close()
@@ -173,7 +173,7 @@ class forensic_project:
 
             # /etc/group 정보 수집
             time = datetime.now()
-            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting file /etc/group contents ...")
+            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting File /etc/group contents ...")
             file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Results of file /etc/group content collection*****\n")	
             file.close()
@@ -181,7 +181,7 @@ class forensic_project:
 
             # /etc/hosts 정보 수집
             time = datetime.now()
-            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting file /etc/hosts contents ...")
+            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting File /etc/hosts contents ...")
             file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Results of file /etc/hosts content collection*****\n")	
             file.close()
@@ -189,7 +189,7 @@ class forensic_project:
 
             # /etc/hosts.allow 정보 수집
             time = datetime.now()
-            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting file /etc/hosts.allow contents ...")
+            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting File /etc/hosts.allow contents ...")
             file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Results of file /etc/hosts.allow content collection*****\n")	
             file.close()
@@ -197,7 +197,7 @@ class forensic_project:
 
             # /etc/hosts.deny 정보 수집
             time = datetime.now()
-            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting file /etc/hosts.deny contents ...")
+            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting File /etc/hosts.deny contents ...")
             file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
             file.write("\n\n\n*****Results of /etc/hosts.deny file content collection*****\n")	
             file.close()
