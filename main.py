@@ -36,7 +36,7 @@ def print_main(args, storage_dir):
 Name: {cyan}{args.name}{noclr}
 date: {cyan}{time}{noclr}
 Comment: {cyan}{args.comment}{noclr}
-{white}description~~~~~~~~~~~~~{noclr}\n''')
+\n''')
 
     file.close()
 
