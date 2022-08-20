@@ -1,6 +1,3 @@
-#!/usr/bin/python3
-#import sys
-#import platform
 import os
 import subprocess as sp
 from datetime import datetime
@@ -37,9 +34,7 @@ def addtxt(filename):
     f.write("----------------------------------------\n")
     f.close()
 
-#def timestamp(time):
-#    sys.stdout  = open(dir+'/timestamp.txt','w') 
-#    print(time+": ", now)
+
 
 def networkinfo(): #인터페이스 설정 정보
     try:
@@ -85,14 +80,11 @@ def arpinfo(): # arp 명령어를 사용한 네트워크 정보 수집
         now = datetime.now()
         printsave( f"{yellow}{now}{noclr}" + " Collecting Network Info via 'arp' command ... ")
         
-        sp.run ('arp -v >>' + dir + '/arpinfo.txt', shell=True) # arp상태 출력
+        sp.run ('arp -v >>' + dir + '/arpinfo.txt', shell=True) # 자세한 모드로 arp상태 출력
         addtxt("arpinfo.txt")
         sp.run ('arp -a >> ' + dir + '/arpinfo.txt', shell=True) # 모든 arp 테이블 확인
         addtxt("arpinfo.txt")
-        sp.run ('arp -vn >> ' + dir + '/arpinfo.txt', shell=True) #
         sp.run ('arp -an >> ' + dir + '/arpinfo.txt', shell=True) # 캐시 테이블 확인
-        addtxt("arpinfo.txt")
-        sp.run ('arp -v >> ' + dir + '/arpinfo.txt', shell=True) # 자세한 모드로 결과 출력
         addtxt("arpinfo.txt")
         sp.run ('arp -vn >> ' + dir + '/arpinfo.txt', shell=True) # n: Resolving 하지 않은 IP 주소로 출력
         addtxt("arpinfo.txt")
@@ -114,7 +106,6 @@ def netstatinfo(): #네트워크 연결상태, 라우팅테이블, 인터페이�
         addtxt("netstat.txt")
         sp.run ('netstat -i >>' + dir + '/netstat.txt', shell=True) #인터페이스 별 send/receive 통계 모니터링
         addtxt("netstat.txt")
-        sp.run ('netstat -rn >>' + dir + '/netstat.txt', shell=True)
         sp.run ('netstat -rn >>' + dir + '/netstat.txt', shell=True) # routing 정보 보기
         addtxt("netstat.txt")
         sp.run ('netstat -es >> ' + dir + '/netstat.txt', shell=True)
@@ -125,7 +116,6 @@ def netstatinfo(): #네트워크 연결상태, 라우팅테이블, 인터페이�
         addtxt("netstat.txt")
         #sp.run ('netstat -v >> ' + dir + '/netstat.txt', shell=True) # 버전출력
         #addtxt("netstat.txt")
-        sp.run ('netstat -at >> ' + dir + '/netstat.txt', shell=True) # TCP만 확인
         sp.run ('sudo netstat -t >> ' + dir + '/netstat.txt', shell=True) # listening 중인 TCP소켓
         addtxt("netstat.txt")
         sp.run ('sudo netstat -antup >> ' + dir + '/netstat.txt', shell=True) # listening 소켓 정보 상세
@@ -154,13 +144,12 @@ def ssinfo():
         now = datetime.now()
         printsave( f"{yellow}{now}{noclr}" + " Collecting Network Info via 'ss' command ... ") 
 
-        sp.run ('ss -t >>' + dir + '/socket.txt', shell=True) # listening socket 제외 현재 연결된 소켓 표시
+        sp.run ('ss >>' + dir + '/socket.txt', shell=True) # listening socket 제외 현재 연결된 소켓 표시
         addtxt("socket.txt")
         sp.run ('ss -t >>' + dir + '/socket.txt', shell=True) # TCP socket 표시
         addtxt("socket.txt")
         sp.run ('ss -u >>' + dir + '/socket.txt', shell=True) # UDP socket 표시
         addtxt("socket.txt")
-        sp.run ('ss -a >> ' + dir + '/socket.txt', shell=True)
         sp.run ('ss -a >> ' + dir + '/socket.txt', shell=True) # listening socket 포함 모든 소켓 표시
         addtxt("socket.txt")
         sp.run ('ss -lt src :80 >>' + dir + '/socket.txt', shell=True) # TCP 80 port listening 소켓 표시
