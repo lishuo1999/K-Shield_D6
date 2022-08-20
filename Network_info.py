@@ -51,21 +51,32 @@ def networkinfo(): #인터페이스 설정 정보
         #sp.run ('iwconfig >>' + dir + '/networkinfo.txt', shell=True) # 무선랜 네트워크 환경 출력
         #addtxt("networkinfo.txt")
         sp.run ('ifconfig -a >>' + dir + '/networkinfo.txt', shell=True) # 모든 네트워크 인터페이스 구성 확인하기
-        addtxt("networkinfo.txt")
-
+        addtxt("networkinfo.txt")    
+        # /etc/hosts 정보 수집
         now = datetime.now()
-        printsave("------ End time :  ", f"{yellow}{now}{noclr}"+" ------")
-
+        printsave(f"{yellow}{now}{noclr}" + " Collecting File /etc/hosts contents ...")
+        sp.run('cat /etc/hosts >> ' + dir + '/networkinfo.txt', shell=True)
+        addtxt("networkinfo.txt")
+        # /etc/hosts.allow 정보 수집
+        now = datetime.now()
+        printsave(f"{yellow}{now}{noclr}" + " Collecting File /etc/hosts.allow contents ...")
+        sp.run('cat /etc/hosts.allow >> ' + dir + '/networkinfo.txt', shell=True)
+        addtxt("networkinfo.txt")
+        # /etc/hosts.deny 정보 수집
+        now = datetime.now()
+        printsave(f"{yellow}{now}{noclr}" + " Collecting File /etc/hosts.deny contents ...")
+        sp.run('cat /etc/hosts.deny >> ' + dir + '/networkinfo.txt', shell=True)
+        addtxt("networkinfo.txt")
         now = datetime.now()
         printsave( f"{yellow}{now}{noclr}" + " Collecting File /etc/resolv contents ... ")
         sp.run('cat /etc/resolv.conf >> ' + dir + '/networkinfo.txt', shell=True) # 네임서버 지정 파일 확인
         addtxt("networkinfo.txt")
-        
         printsave( f"{yellow}{now}{noclr}" + " Collecting Network Info via 'ip link show' command ... ")
         sp.run('ip link show >> ' + dir + '/networkinfo.txt', shell=True)
         addtxt("networkinfo.txt")
-        
-          
+
+        now = datetime.now()
+        printsave("------ End time :  ", f"{yellow}{now}{noclr}"+" ------")
                
     except Exception as e:
         printsave("Failed to collect network information",e)

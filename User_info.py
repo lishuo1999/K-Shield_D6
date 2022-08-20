@@ -182,30 +182,38 @@ class forensic_project:
             file.close()
             sp.run('cat /etc/group >> ' + self.storage_dir + '/user.txt', shell=True)
 
-            # /etc/hosts 정보 수집
+            # /etc/default/useradd 정보 수집
             time = datetime.now()
-            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting File /etc/hosts contents ...")
+            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting File /etc/default/useradd contents ...")
             file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
-            file.write("\n\n\n*****Results of file /etc/hosts content collection*****\n")	
+            file.write("\n\n\n*****Results of file /etc/default/useradd content collection*****\n")	
             file.close()
-            sp.run('cat /etc/hosts >> ' + self.storage_dir + '/user.txt', shell=True)
+            sp.run('cat /etc/default/useradd >> ' + self.storage_dir + '/user.txt', shell=True)
 
-            # /etc/hosts.allow 정보 수집
+            # /etc/skel 하위 목록 수집
             time = datetime.now()
-            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting File /etc/hosts.allow contents ...")
+            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting File /etc/skel contents ...")
             file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
-            file.write("\n\n\n*****Results of file /etc/hosts.allow content collection*****\n")	
+            file.write("\n\n\n*****Results of directory /etc/skel content collection*****\n")	
             file.close()
-            sp.run('cat /etc/hosts.allow >> ' + self.storage_dir + '/user.txt', shell=True)
+            sp.run('ls /etc/skel >> ' + self.storage_dir + '/user.txt', shell=True)
 
-            # /etc/hosts.deny 정보 수집
+            # /etc/login.defs 정보 수집
             time = datetime.now()
-            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting File /etc/hosts.deny contents ...")
+            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting File /etc/login.defs contents ...")
             file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
-            file.write("\n\n\n*****Results of /etc/hosts.deny file content collection*****\n")	
+            file.write("\n\n\n*****Results of file /etc/login.defs content collection*****\n")	
             file.close()
-            sp.run('cat /etc/hosts.deny >> ' + self.storage_dir + '/user.txt', shell=True)
-        
+            sp.run('cat /etc/login.defs >> ' + self.storage_dir + '/user.txt', shell=True)
+
+            # /etc/gshadow 정보 수집
+            time = datetime.now()
+            self.printsave(f"{yellow}{str(time)}{noclr}" + "  Collecting File /etc/gshadow contents ...")
+            file = open(self.storage_dir + "/user.txt", 'a', encoding = 'utf-8')
+            file.write("\n\n\n*****Results of file /etc/gshadow content collection*****\n")	
+            file.close()
+            sp.run('cat /etc/gshadow >> ' + self.storage_dir + '/user.txt', shell=True)
+
         except Exception as err:
             self.printsave("Error creating file: ", f"{red}{err}{noclr}")
             return False
