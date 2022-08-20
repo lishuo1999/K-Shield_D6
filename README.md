@@ -13,28 +13,26 @@ Using options <br/>
 
 User_info
 ------------
-![USER_INFO](https://user-images.githubusercontent.com/69711911/185564103-26aba49b-cf92-4d1b-8976-3ed11ba48eac.JPG)
-
+![user](https://user-images.githubusercontent.com/22559928/185747779-058bb0f9-5a68-460b-98b0-5015ca3fcccc.png)
 
 
 File_info
 ------------
-![file](https://user-images.githubusercontent.com/69711911/184645670-83b955d1-2198-4208-9947-fa3b24ced103.JPG)
-
+![file](https://user-images.githubusercontent.com/22559928/185747943-f879d4b0-574b-4f5d-a63f-1a4e5ee63803.png)
 
 Network_info
 ------------
-![NETWORK_INFO](https://user-images.githubusercontent.com/69711911/185564134-96f44f4b-bf89-4a5d-8f02-4d46e7707ea0.JPG)
+![network](https://user-images.githubusercontent.com/22559928/185747827-b869f376-a98a-4e1e-803d-ff2f24caa65d.png)
 
 
 
 Process_info
 ------------
-![process](https://user-images.githubusercontent.com/69711911/185564155-bc72fd0e-df69-4cd4-a36c-7347465e126e.JPG)
+![process](https://user-images.githubusercontent.com/22559928/185747797-c91ec0e7-2337-4299-b61e-3d4595635803.png)
 
 
 System_info
 ------------
-![SYSTEM_INFO](https://user-images.githubusercontent.com/69711911/185564180-a5c14141-aca7-4116-be33-e8131ebbf009.JPG)
+![system](https://user-images.githubusercontent.com/22559928/185747746-c6edd5a1-3b40-4455-a127-dde0418d393e.png)
 
 
