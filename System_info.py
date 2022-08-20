@@ -135,22 +135,7 @@ def sys_info():
 
     status("df") # 파일시스템 크기와 용량
     os_sys("df", "/df.txt")
-    status("modules")
-    os_sys("lsmod", "/modules.txt")
-
-    status("sudo")
-    os_sys("sudo -V", "/sudo.txt")
-
-    status("lsusb")
-    os_sys("lsusb", "/usb_info.txt")
-    
-    status("mount")
-    os_sys("mount", "/mount.txt")
-    
-
-    status("df")
-    os_sys("df", "/df.txt")
-
+  
     status("packages istall information")
     os_sys("cat $MOTHERPATH/var/lib/dpkg/status | grep -B 1 'Status: install ok installed'", "/pkg_inf.txt")
 
