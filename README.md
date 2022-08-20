@@ -26,6 +26,25 @@ options:
   -d DIRECTORY, --directory DIRECTORY
 ```
 
+Execute with personal information
+------------
+```
+root@ubuntu:~/K-Shield_D6# python3 main.py --group K-Shield --name user --comment 'Team Project'
+
+
+    __    __             __                  __        __
+   |  |  /  /           |  |    __          |  |      |  | 
+   |  | /  /        __ _|  |__ |__| _______ |  |      |  |
+   |  |/  /  ___   /  __|  |_ \ __ /  ___  \|  | _____|  |
+   |     |  |___| |  /_ |   _  |  |  /___\  |  |/  __    |       
+   |  |\  \        \__  \  | | |  |  \_____/|  |  |__|   |  
+   |__| \__\      |____ /__| |_|__|\_______ |__|\________|          
+   
+    Group: K-Shield
+    Name: user
+    date: 2022-08-20 22:34:16.530594
+    Comment: Team Project
+```
 
 User_info
 ------------
