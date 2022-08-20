@@ -87,7 +87,6 @@ def main():
 
     args = parser.parse_args() # 입력받은 인자값을 args에 저장
 
-
     if args.directory:
         storage_dir = args.directory
     else:
